@@ -1,0 +1,37 @@
+.marquee {
+  --gap: 1rem;
+  display: flex;
+  gap: var(--gap);
+  overflow: hidden;
+  position: relative;
+  user-select: none;
+}
+
+.marquee:hover .marqueeContent,
+.marquee:focus-within .marqueeContent {
+  animation-play-state: paused;
+}
+
+.marqueeContent {
+  animation: scroll 20s linear infinite;
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--gap);
+  justify-content: space-around;
+  min-width: 100%;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__content {
+    animation-play-state: paused !important;
+  }
+}
