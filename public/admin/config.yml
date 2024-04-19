@@ -1,0 +1,48 @@
+local_backend: true
+backend:
+  name: git-gateway
+  branch: main
+publish_mode: editorial_workflow
+media_folder: public/images
+public_folder: /images
+site_url: https://pluginium.com
+collections:
+  - name: authors
+    label: Authors
+    label_singular: Author
+    folder: _content/authors
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Content, name: content, widget: markdown }
+  - name: platforms
+    label: Platforms
+    label_singular: Platform
+    folder: _content/platforms
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Content, name: content, widget: markdown }
+  - name: plugins
+    label: Plugins
+    label_singular: Plugin
+    folder: _content/plugins
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Abbreviation, name: abbr, widget: string }
+      - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD }
+      - { label: Published, name: published, widget: boolean}
+      - { label: Content, name: content, widget: markdown }
+  - name: posts
+    label: Posts
+    label_singular: Post
+    folder: _content/posts
+    create: true
+    slug: '{{platform}}-{{slug}}'
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD }
+      - { label: Platform, name: platform, widget: relation, collection: platforms, search_fields: [title], value_field: title, display_fields: [title] }
+      - { label: Author, name: author, widget: relation, collection: authors, search_fields: [title], value_field: title, display_fields: [title] }
+      - { label: Content, name: content, widget: markdown }

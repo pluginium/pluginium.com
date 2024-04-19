@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Content Manager | Pluginium</title>
+  </head>
+  <body>
+    <!-- Include the script that builds the page and powers Decap CMS -->
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <script>
+      const ContentPreview = createClass({
+        render: function () {
+          var entry = this.props.entry;
+          var date = entry.getIn(["data", "date"]);
+          return h(
+            "div",
+            { className: "content" },
+            h("h1", {}, entry.getIn(["data", "title"])),
+            h("time", {}, entry.getIn(["data", "date"])),
+            h("div", {}, this.props.widgetFor("content"))
+          );
+        },
+      });
+
+      CMS.registerPreviewStyle(
+        'https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap'
+      )
+      CMS.registerPreviewStyle("/admin/content.module.css");
+      CMS.registerPreviewTemplate("authors", ContentPreview);
+      CMS.registerPreviewTemplate("platforms", ContentPreview);
+      CMS.registerPreviewTemplate("plugins", ContentPreview);
+      CMS.registerPreviewTemplate("posts", ContentPreview);
+    </script>
+  </body>
+</html>
