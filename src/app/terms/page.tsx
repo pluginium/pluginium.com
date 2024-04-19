@@ -3,13 +3,13 @@ import PageHeader from '@/components/PageHeader'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Support',
+  title: 'Terms and Conditions',
 }
 
-export default function Support() {
+export default function Terms() {
   return (
     <>
-      <PageHeader>Support</PageHeader>
+      <PageHeader>Terms and Conditions</PageHeader>
     </>
   )
 }

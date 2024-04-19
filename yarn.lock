@@ -3784,9 +3784,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pluginium@workspace:.":
+"pluginium.com@workspace:.":
   version: 0.0.0-use.local
-  resolution: "pluginium@workspace:."
+  resolution: "pluginium.com@workspace:."
   dependencies:
     "@headlessui/react": "npm:^1.7.18"
     "@headlessui/tailwindcss": "npm:^0.2.0"

@@ -18,14 +18,12 @@ export default function Platforms() {
 
   return (
     <>
-      <PageHeader subtitle={<p className="mt-1 text-lg">{description}</p>}>
-        Platforms
-      </PageHeader>
+      <PageHeader subtitle={description}>Platforms</PageHeader>
 
       <div className="space-y-12">
         {platforms.map((platform) => (
           <section key={platform.slug}>
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-2xl">
               <Link href={`/platforms/${platform.slug}`}>{platform.title}</Link>
             </h2>
           </section>

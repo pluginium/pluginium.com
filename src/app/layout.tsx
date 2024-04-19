@@ -2,6 +2,13 @@ import type { Metadata } from 'next'
 import { Overpass } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link'
+import {
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaThreads,
+  FaXTwitter,
+} from 'react-icons/fa6'
 
 import { getAllPlatforms } from '@/app/api/platforms/route'
 import { getAllPlugins } from '@/app/api/plugins/route'
@@ -27,6 +34,26 @@ export default function RootLayout({
   const platforms = getAllPlatforms()
   const plugins = getAllPlugins()
 
+  const socials = [
+    { label: 'GitHub', icon: FaGithub, href: 'https://github.com/pluginium' },
+    { label: 'X', icon: FaXTwitter, href: 'https://twitter.com/pluginium' },
+    {
+      label: 'LinkedIn',
+      icon: FaLinkedin,
+      href: 'https://linkedin.com/company/pluginium',
+    },
+    {
+      label: 'Threads',
+      icon: FaThreads,
+      href: 'https://threads.net/@pluginium',
+    },
+    {
+      label: 'Instagram',
+      icon: FaInstagram,
+      href: 'https://instagram.com/pluginium',
+    },
+  ]
+
   return (
     <html lang="en">
       <body
@@ -48,15 +75,30 @@ export default function RootLayout({
           {children}
         </main>
 
-        <footer className="border-t-1/2 px-wrap pt-6">
-          <div className="mb-6 grid grid-cols-2 gap-x-4 gap-y-6 text-sm md:grid-cols-4 xl:grid-cols-6">
+        <footer className="border-t-1/2 px-wrap py-12">
+          <div className="grid grid-cols-2 gap-x-4 gap-y-6 text-sm md:grid-cols-4 xl:grid-cols-6">
             <div>
               <Link href="/" className="block max-w-32">
                 <Wordmark />
               </Link>
 
-              <p className="mt-4 text-xs">
-                &copy; {new Date().getFullYear()}{' '}
+              <ul className="my-4 flex flex-wrap gap-4">
+                {socials.map((social) => (
+                  <li key={social.label}>
+                    <Link
+                      href={social.href}
+                      target="_blank"
+                      rel="noreferrer nofollow"
+                    >
+                      <social.icon aria-hidden className="h-6 w-6" />
+                      <span className="sr-only">{social.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+
+              <p className="text-xs">
+                Copyright &copy; {new Date().getFullYear()}{' '}
                 <Link href="/">Pluginium LLC</Link>
               </p>
             </div>
@@ -101,11 +143,6 @@ export default function RootLayout({
               <h3 className="mb-1 font-semibold uppercase">Company</h3>
               <ul>
                 <li>
-                  <Link href="/blog" className="inline-block py-1">
-                    Blog
-                  </Link>
-                </li>
-                <li>
                   <Link href="/about" className="inline-block py-1">
                     About
                   </Link>
@@ -116,8 +153,47 @@ export default function RootLayout({
                   </Link>
                 </li>
                 <li>
-                  <Link href="/support" className="inline-block py-1">
-                    Support
+                  <Link href="/blog" className="inline-block py-1">
+                    Blog
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/careers" className="inline-block py-1">
+                    Careers
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/open-source" className="inline-block py-1">
+                    Open Source
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms" className="inline-block py-1">
+                    Terms and Conditions
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy" className="inline-block py-1">
+                    Privacy
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="mb-1 font-semibold uppercase">Support</h3>
+              <ul>
+                <li>
+                  <Link href="#" className="inline-block py-1">
+                    Chat
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="mailto:support@pluginium.com"
+                    className="inline-block py-1"
+                  >
+                    Email
                   </Link>
                 </li>
               </ul>

@@ -18,11 +18,10 @@ export async function generateMetadata({
 }: {
   params: Params
 }): Promise<Metadata> {
-  const platform = getPlatformBySlug(params.platform)
   const post = getPostBySlug(`${params.platform}-${params.slug}`)
 
   return {
-    title: `${post.title} | ${platform.title} | Blog`,
+    title: `${post.title} | Blog`,
   }
 }
 
@@ -43,8 +42,9 @@ export default function Post({ params }: { params: Params }) {
           { href: '/blog', label: 'Blog' },
           { href: `/blog/${platform.slug}`, label: platform.title },
         ]}
+        platform={platform.slug}
         subtitle={
-          <p className="text-center">
+          <>
             by{' '}
             <Link
               href={`/blog/authors/${author.slug}`}
@@ -52,7 +52,7 @@ export default function Post({ params }: { params: Params }) {
             >
               {author.title}
             </Link>
-          </p>
+          </>
         }
       >
         {post.title}
@@ -66,6 +66,6 @@ export async function generateStaticParams() {
 
   return posts.map((post) => ({
     platform: post.platform,
-    slug: post.slug.replace(`${post.platform}-`, ''),
+    slug: post.slug,
   }))
 }

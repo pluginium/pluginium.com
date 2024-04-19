@@ -3,7 +3,6 @@ import { Post } from './post'
 
 export interface Platform {
   title: string
-  abbr: string
   slug: string
   content: string
 }

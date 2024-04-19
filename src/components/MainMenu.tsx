@@ -1,6 +1,8 @@
 'use client'
 
-import { Menu } from '@headlessui/react'
+import { useState } from 'react'
+
+import { Dialog, Menu } from '@headlessui/react'
 import Link from 'next/link'
 import { TbChevronDown, TbMenu, TbX } from 'react-icons/tb'
 
@@ -13,6 +15,8 @@ interface MainMenuProps {
 }
 
 const MainMenu = ({ platforms, plugins }: MainMenuProps) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
   const menuItems = [
     {
       label: 'Plugins',
@@ -81,43 +85,62 @@ const MainMenu = ({ platforms, plugins }: MainMenuProps) => {
       </div>
 
       {/* Mobile */}
-      <Menu as="div" className="relative -mr-3 flex items-stretch md:hidden">
-        <Menu.Button className="px-3 transition-colors hover:bg-stone-100 hover:text-emerald-700 dark:hover:bg-stone-900 dark:hover:text-emerald-300">
-          <TbMenu aria-hidden className="h-6 w-6 ui-open:hidden" />
-          <TbX aria-hidden className="hidden h-6 w-6 ui-open:block" />
-          <span className="sr-only">Toggle Menu</span>
-        </Menu.Button>
+      <button
+        onClick={() => setIsMenuOpen(true)}
+        className="-mr-3 block px-3 transition-colors hover:bg-stone-100 hover:text-emerald-700 md:hidden dark:hover:bg-stone-900 dark:hover:text-emerald-300"
+      >
+        <TbMenu aria-hidden className="h-6 w-6" />
+        <span className="sr-only">Toggle Menu</span>
+      </button>
 
-        <Menu.Items className="fixed bottom-12 left-wrap right-wrap top-12 mt-2 space-y-4 overflow-y-auto rounded-md border-1/2 bg-white px-8 py-6 text-lg dark:bg-stone-950">
-          {menuItems.map((menuItem) => (
-            <ul key={menuItem.href}>
-              <li className="">
-                <Menu.Item>
+      <Dialog
+        as="div"
+        className="relative z-40 block md:hidden"
+        open={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+      >
+        <div className="fixed inset-0 bg-stone-100 bg-opacity-90 dark:bg-stone-900 dark:bg-opacity-95" />
+
+        <Dialog.Panel className="fixed bottom-12 left-wrap right-wrap top-12 my-2 overflow-y-auto rounded-md border-1/2 bg-white px-8 py-6 text-lg dark:bg-stone-950">
+          <button
+            className="fixed right-wrap top-14 p-2 transition-colors hover:text-emerald-700 dark:hover:text-emerald-300"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <TbX aria-hidden className="h-6 w-6" />
+          </button>
+
+          <div className="space-y-4">
+            {menuItems.map((menuItem) => (
+              <ul key={menuItem.href}>
+                <li className="">
                   <Link
                     href={menuItem.href}
                     className="inline-block py-1 font-bold uppercase"
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     {menuItem.label}
                   </Link>
-                </Menu.Item>
-                {menuItem.items && menuItem.items.length > 0 && (
-                  <ul className="text-base">
-                    {menuItem.items.map((item) => (
-                      <li key={item.href}>
-                        <Menu.Item>
-                          <Link href={item.href} className="inline-block py-1">
+                  {menuItem.items && menuItem.items.length > 0 && (
+                    <ul className="text-base">
+                      {menuItem.items.map((item) => (
+                        <li key={item.href}>
+                          <Link
+                            href={item.href}
+                            className="inline-block py-1"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
                             {item.label}
                           </Link>
-                        </Menu.Item>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            </ul>
-          ))}
-        </Menu.Items>
-      </Menu>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              </ul>
+            ))}
+          </div>
+        </Dialog.Panel>
+      </Dialog>
     </>
   )
 }

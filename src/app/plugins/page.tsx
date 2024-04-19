@@ -18,14 +18,12 @@ export default function Plugins() {
 
   return (
     <>
-      <PageHeader subtitle={<p className="mt-1 text-lg">{description}</p>}>
-        Plugins
-      </PageHeader>
+      <PageHeader subtitle={description}>Plugins</PageHeader>
 
       <div className="space-y-12">
         {plugins.map((plugin) => (
           <section key={plugin.slug}>
-            <h2 className="text-2xl font-bold">
+            <h2 className="text-2xl">
               <Link href={`/plugins/${plugin.slug}`}>{plugin.title}</Link>
             </h2>
           </section>

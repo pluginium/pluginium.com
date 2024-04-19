@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { getAllPlatforms, getPlatformBySlug } from '@/app/api/platforms/route'
+import BlogPost from '@/components/BlogPost'
 import PageHeader from '@/components/PageHeader'
 
 import type { Metadata } from 'next'
@@ -32,23 +33,26 @@ export default function PlatformCategory({ params }: { params: Params }) {
     <>
       <PageHeader
         breadcrumbs={[{ href: '/blog', label: 'Blog' }]}
-        subtitle={
-          <p className="mt-1 text-lg">{`Tips and tricks for the ${platform.title} platform`}</p>
-        }
+        platform={platform.slug}
+        subtitle={`Tips and tricks for the ${platform.title} platform`}
       >
         {platform.title}
       </PageHeader>
 
       <section>
-        {platform.posts.map((post) => (
-          <article key={post.slug}>
-            <h2>
-              <Link href={`/blog/${post.platform}/${post.slug}`}>
-                {post.title}
-              </Link>
-            </h2>
-          </article>
-        ))}
+        <h2 className="mb-6 text-2xl">Latest Posts</h2>
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
+          {platform.posts.map((post) => (
+            <BlogPost
+              key={`${post.platform}-${post.slug}`}
+              href={`/blog/${post.platform}/${post.slug}`}
+              platform={post.platform}
+              date={post.date}
+            >
+              {post.title}
+            </BlogPost>
+          ))}
+        </div>
       </section>
     </>
   )

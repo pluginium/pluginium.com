@@ -7,8 +7,60 @@
     @apply border-stone-300 dark:border-stone-700;
   }
 
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+
   a {
     @apply transition-colors duration-300 hover:text-emerald-700 dark:hover:text-emerald-300;
+  }
+}
+
+@layer utilities {
+  .pattern-cross-dots-md {
+    background-image: radial-gradient(currentColor 1px,transparent 0),radial-gradient(currentColor 1px,transparent 0);
+    background-size: calc(20 * 1px) calc(20 * 1px);
+    background-position: 0 0,calc(10 * 1px) calc(10 * 1px)
+  }
+
+  .marquee {
+    --gap: 4rem;
+    display: flex;
+    gap: var(--gap);
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+  }
+
+  .marquee:hover .marqueeContent {
+    animation-play-state: paused;
+  }
+
+  .marqueeContent {
+    display: flex;
+    flex-shrink: 0;
+    gap: var(--gap);
+    justify-content: space-around;
+    min-width: 100%;
+  }
+
+  .marqueeContent.animation {
+    animation: scroll 20s linear infinite;
+  }
+
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marqueeContent {
+      animation-play-state: paused !important;
+    }
   }
 }
 

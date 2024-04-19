@@ -29,7 +29,10 @@ export default function Platform({ params }: { params: Params }) {
 
   return (
     <>
-      <PageHeader breadcrumbs={[{ href: '/platforms', label: 'Platforms' }]}>
+      <PageHeader
+        breadcrumbs={[{ href: '/platforms', label: 'Platforms' }]}
+        platform={platform.slug}
+      >
         {platform.title}
       </PageHeader>
     </>
