@@ -1,4 +1,3 @@
 ---
 title: Salesforce
-abbr: Sf
 ---

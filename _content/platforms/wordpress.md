@@ -1,4 +1,3 @@
 ---
 title: WordPress
-abbr: Wp
 ---

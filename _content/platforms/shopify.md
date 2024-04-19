@@ -1,4 +1,3 @@
 ---
 title: Shopify
-abbr: Sh
 ---

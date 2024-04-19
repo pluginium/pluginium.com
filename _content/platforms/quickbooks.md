@@ -1,4 +1,3 @@
 ---
 title: Quickbooks
-abbr: Qb
 ---
