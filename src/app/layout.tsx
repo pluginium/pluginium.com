@@ -100,16 +100,16 @@ export default function RootLayout({
           label: 'Blog',
         },
         {
+          href: '/blog/news',
+          label: 'News',
+        },
+        {
           href: '/about',
           label: 'About',
         },
         {
           href: '/team',
           label: 'Team',
-        },
-        {
-          href: '/contact',
-          label: 'Contact',
         },
         {
           href: '/careers',
@@ -139,6 +139,10 @@ export default function RootLayout({
         {
           href: 'mailto:support@pluginium.com',
           label: 'Email',
+        },
+        {
+          href: '/contact',
+          label: 'Contact',
         },
       ],
     },

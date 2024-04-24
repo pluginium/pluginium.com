@@ -3,16 +3,18 @@ import { notFound } from 'next/navigation'
 import BlogPost from '@/components/BlogPost'
 import PageHeader from '@/components/PageHeader'
 import {
+  getAllNews,
   getAllPlatforms,
   getAllPlugins,
   getAllPosts,
+  getNewsBySlug,
   getPlatformBySlug,
 } from '@/lib/api'
 
 import type { Metadata } from 'next'
 
 interface Params {
-  platform: string
+  category: string
 }
 
 export async function generateMetadata({
@@ -20,31 +22,43 @@ export async function generateMetadata({
 }: {
   params: Params
 }): Promise<Metadata> {
-  const platform = getPlatformBySlug(params.platform)
+  const category =
+    params.category === 'news' ? undefined : getPlatformBySlug(params.category)
 
   return {
-    title: `${platform.title} | Blog`,
-    description: `Tips and tricks for the ${platform.title} platform`,
+    title: `${category?.title || 'News'} | Blog`,
+    description: category
+      ? `Tips and tricks for the ${category.title} platform`
+      : 'Latest news from Pluginium',
   }
 }
 
 export default function PlatformCategory({ params }: { params: Params }) {
-  const platform = getPlatformBySlug(params.platform)
-  const plugins = getAllPlugins().filter((p) =>
-    Object.keys(p.platforms || {}).includes(platform.slug),
-  )
-  const posts = getAllPosts().filter((p) => p.platform === platform.slug)
+  const platform =
+    params.category === 'news' ? undefined : getPlatformBySlug(params.category)
+  const plugins = platform
+    ? getAllPlugins().filter((p) =>
+        Object.keys(p.platforms || {}).includes(platform.slug),
+      )
+    : []
+  const posts = platform
+    ? getAllPosts().filter((p) => p.platform === platform.slug)
+    : getAllNews()
 
-  if (!platform) notFound()
+  if (params.category !== 'news' && !platform) notFound()
 
   return (
     <>
       <PageHeader
         breadcrumbs={[{ href: '/blog', label: 'Blog' }]}
-        platform={platform.slug}
-        subtitle={`Tips and tricks for the ${platform.title} platform`}
+        platform={platform?.slug}
+        subtitle={
+          platform
+            ? `Tips and tricks for the ${platform.title} platform`
+            : 'Latest news from Pluginium'
+        }
       >
-        {platform.title}
+        {platform?.title || 'News'}
       </PageHeader>
 
       <section>
@@ -52,8 +66,8 @@ export default function PlatformCategory({ params }: { params: Params }) {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
           {posts.map((post) => (
             <BlogPost
-              key={`${post.platform}-${post.slug}`}
-              href={`/blog/${post.platform}/${post.slug}`}
+              key={`${post.platform || 'news'}-${post.slug}`}
+              href={`/blog/${post.platform || 'news'}/${post.slug}`}
               platform={post.platform}
               date={post.date}
             >
@@ -63,7 +77,7 @@ export default function PlatformCategory({ params }: { params: Params }) {
         </div>
       </section>
 
-      {plugins.length > 0 && (
+      {platform && plugins.length > 0 && (
         <section className="mt-12 border-t-1/2 pt-12">
           <h2 className="mb-6 text-2xl">Our {platform.title} Offerings</h2>
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
@@ -82,7 +96,10 @@ export default function PlatformCategory({ params }: { params: Params }) {
 export async function generateStaticParams() {
   const platforms = getAllPlatforms()
 
-  return platforms.map((platform) => ({
-    platform: platform.slug,
-  }))
+  return [
+    { category: 'news' },
+    ...platforms.map((platform) => ({
+      category: platform.slug,
+    })),
+  ]
 }

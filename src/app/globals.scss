@@ -20,7 +20,7 @@
   }
 
   input, textarea, select {
-    @apply block w-full font-normal border-1/2 text-lg bg-white dark:bg-stone-950 rounded-md px-3 py-2;
+    @apply block w-full font-normal border-1/2 text-lg bg-white dark:bg-stone-950 rounded-md px-3 py-2 focus:outline-none focus:border-emerald-600 dark:focus:border-emerald-400;
   }
 
   textarea {
@@ -57,7 +57,7 @@
   }
 
   .marqueeContent.animation {
-    animation: scroll 20s linear infinite;
+    animation: scroll 30s linear infinite;
   }
 
   @keyframes scroll {

@@ -7,6 +7,15 @@ media_folder: public/images
 public_folder: /images
 site_url: https://pluginium.com
 collections:
+  - name: news
+    label: News
+    folder: _content/news
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Author, name: author, widget: relation, collection: people, search_fields: [title], value_field: title, display_fields: [title] }
+      - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD }
+      - { label: Content, name: content, widget: markdown }
   - name: people
     label: People
     label_singular: Person
@@ -14,6 +23,8 @@ collections:
     create: true
     fields:
       - { label: Title, name: title, widget: string }
+      - { label: Profile Image, name: image, widget: image, choose_url: false, media_folder: /public/images/people, public_folder: /images/people }
+      - { label: Position, name: position, widget: string }
       - { label: Content, name: content, widget: markdown }
   - name: platforms
     label: Platforms
@@ -22,6 +33,7 @@ collections:
     create: true
     fields:
       - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: string }
       - { label: Content, name: content, widget: markdown }
   - name: plugins
     label: Plugins
@@ -31,6 +43,7 @@ collections:
     fields:
       - { label: Title, name: title, widget: string }
       - { label: Description, name: description, widget: string }
+      - { label: Cover Image, name: cover, widget: image, choose_url: false, media_folder: /public/images/plugins, public_folder: /images/plugins }
       - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD }
       - { label: Published, name: published, widget: boolean}
       - { label: Content, name: content, widget: markdown }
@@ -39,10 +52,11 @@ collections:
     label_singular: Position
     folder: _content/positions
     create: true
+    slug: '{{date}}-{{slug}}'
     fields:
       - { label: Title, name: title, widget: string }
       - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD }
-      - { label: Open, name: open, widget: boolean}
+      - { label: Open, name: open, widget: boolean }
       - { label: Content, name: content, widget: markdown }
   - name: posts
     label: Posts
@@ -52,7 +66,7 @@ collections:
     slug: '{{platform}}-{{slug}}'
     fields:
       - { label: Title, name: title, widget: string }
+      - { label: Author, name: author, widget: relation, collection: people, search_fields: [title], value_field: title, display_fields: [title] }
       - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD }
       - { label: Platform, name: platform, widget: relation, collection: platforms, search_fields: [title], value_field: title, display_fields: [title] }
-      - { label: Author, name: author, widget: relation, collection: people, search_fields: [title], value_field: title, display_fields: [title] }
       - { label: Content, name: content, widget: markdown }

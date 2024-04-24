@@ -6,21 +6,70 @@ export interface BaseContent {
   content: string
 }
 
-export interface Person extends BaseContent {}
+interface BlogBase extends BaseContent {
+  author: string
+  date: string
+}
 
-export const getPersonBySlug = (slug: string) =>
-  getContentBySlug<Person>('people', slug)
+interface News extends BlogBase {
+  platform?: never
+}
+
+export const getNewsBySlug = (slug: string) =>
+  getContentBySlug<News>('news', slug)
+
+export const getAllNews = () => getAllContent<News>('news')
+
+interface Person extends BaseContent {
+  image: string
+  position: string
+}
+
+interface PersonWithRelations extends Person {
+  posts: Omit<News | Post, 'content'>[]
+}
+
+export const getPersonBySlug = (slug: string): PersonWithRelations => {
+  const person = getContentBySlug<PersonWithRelations>('people', slug)
+  const posts = getAllPosts().filter((p) => p.author === person.slug)
+
+  return {
+    ...person,
+    posts,
+  }
+}
 
 export const getAllPeople = () => getAllContent<Person>('people')
 
-export interface Platform extends BaseContent {}
+export interface Platform extends BaseContent {
+  description: string
+}
 
-export const getPlatformBySlug = (slug: string) =>
-  getContentBySlug<Platform>('platforms', slug)
+interface PlatformWithRelations extends Platform {
+  plugins: Omit<Plugin, 'content'>[]
+  posts: Omit<News | Post, 'content'>[]
+}
+
+export const getPlatformBySlug = (slug: string): PlatformWithRelations => {
+  const platform = getContentBySlug<Platform>('platforms', slug)
+  const plugins = getAllPlugins().filter(
+    (p) => p.platforms && Object.keys(p.platforms).includes(platform.slug),
+  )
+  const posts = getAllPosts().filter(
+    (p) => p.platform && p.platform === platform.slug,
+  )
+
+  return {
+    ...platform,
+    plugins,
+    posts,
+  }
+}
 
 export const getAllPlatforms = () => getAllContent<Platform>('platforms')
 
 export interface Plugin extends BaseContent {
+  cover?: string
   description: string
   date: string
   published?: boolean
@@ -32,7 +81,7 @@ export const getPluginBySlug = (slug: string) =>
 
 export const getAllPlugins = () => getAllContent<Plugin>('plugins')
 
-export interface Position extends BaseContent {
+interface Position extends BaseContent {
   date: string
   open?: boolean
 }
@@ -42,10 +91,8 @@ export const getPositionBySlug = (slug: string) =>
 
 export const getAllPositions = () => getAllContent<Position>('positions')
 
-export interface Post extends BaseContent {
-  date: string
+interface Post extends BlogBase {
   platform: string
-  author: string
 }
 
 export const getPostBySlug = (slug: string) => {
@@ -55,11 +102,18 @@ export const getPostBySlug = (slug: string) => {
   return post
 }
 
-export const getAllPosts = () =>
-  getAllContent<Post>('posts').map(
+export const getAllPosts = () => {
+  const news = getAllNews()
+
+  const posts = getAllContent<Post>('posts').map(
     (p) =>
       ({
         ...p,
         slug: p.slug.replace(`${p.platform}-`, ''),
       }) as Omit<Post, 'content'>,
   )
+
+  return [...news, ...posts].sort((post1, post2) =>
+    post1.date > post2.date ? -1 : 1,
+  ) as Omit<News | Post, 'content'>[]
+}

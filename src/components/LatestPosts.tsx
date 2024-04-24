@@ -12,8 +12,8 @@ const LatestPosts = () => {
       <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
         {firstPosts.map((post) => (
           <BlogPost
-            key={`${post.platform}-${post.slug}`}
-            href={`/blog/${post.platform}/${post.slug}`}
+            key={`${post.platform || 'news'}-${post.slug}`}
+            href={`/blog/${post.platform || 'news'}/${post.slug}`}
             platform={post.platform}
             date={post.date}
           >

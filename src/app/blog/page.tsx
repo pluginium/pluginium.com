@@ -65,7 +65,7 @@ export default function Blog() {
               {posts.map((post) => (
                 <BlogPost
                   key={`${post.platform}-${post.slug}`}
-                  href={`/blog/${post.platform}/${post.slug}`}
+                  href={`/blog/${post.platform || 'news'}/${post.slug}`}
                   platform={post.platform}
                   date={post.date}
                 >

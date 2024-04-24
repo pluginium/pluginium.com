@@ -6,8 +6,7 @@ import { Dialog, Menu } from '@headlessui/react'
 import Link from 'next/link'
 import { TbChevronDown, TbMenu, TbX } from 'react-icons/tb'
 
-import { Platform } from '@/interfaces/platform'
-import { Plugin } from '@/interfaces/plugin'
+import { Platform, Plugin } from '@/lib/api'
 import { platformIcons } from '@/lib/platform-icons'
 
 interface MainMenuProps {
