@@ -1,7 +1,9 @@
 import Link from 'next/link'
 
-import { getAllPlugins } from '@/app/api/plugins/route'
 import PageHeader from '@/components/PageHeader'
+import PluginGrid from '@/components/PluginGrid'
+
+import image from '@/../public/illustrations/plugins.svg'
 
 import type { Metadata } from 'next'
 
@@ -14,21 +16,13 @@ export const metadata: Metadata = {
 }
 
 export default function Plugins() {
-  const plugins = getAllPlugins()
-
   return (
     <>
-      <PageHeader subtitle={description}>Plugins</PageHeader>
+      <PageHeader image={image} subtitle={description}>
+        Plugins
+      </PageHeader>
 
-      <div className="space-y-12">
-        {plugins.map((plugin) => (
-          <section key={plugin.slug}>
-            <h2 className="text-2xl">
-              <Link href={`/plugins/${plugin.slug}`}>{plugin.title}</Link>
-            </h2>
-          </section>
-        ))}
-      </div>
+      <PluginGrid hideTitle />
     </>
   )
 }

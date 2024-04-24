@@ -1,7 +1,9 @@
 import Link from 'next/link'
 
-import { getAllPlatforms } from '@/app/api/platforms/route'
 import PageHeader from '@/components/PageHeader'
+import { getAllPlatforms } from '@/lib/api'
+
+import image from '@/../public/illustrations/platforms.svg'
 
 import type { Metadata } from 'next'
 
@@ -18,7 +20,9 @@ export default function Platforms() {
 
   return (
     <>
-      <PageHeader subtitle={description}>Platforms</PageHeader>
+      <PageHeader image={image} subtitle={description}>
+        Platforms
+      </PageHeader>
 
       <div className="space-y-12">
         {platforms.map((platform) => (

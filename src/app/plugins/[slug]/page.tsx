@@ -1,8 +1,7 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { getAllPlugins, getPluginBySlug } from '@/app/api/plugins/route'
 import PageHeader from '@/components/PageHeader'
+import { getAllPlugins, getPluginBySlug } from '@/lib/api'
 
 import type { Metadata } from 'next'
 
@@ -22,14 +21,17 @@ export async function generateMetadata({
   }
 }
 
-export default function Plugin({ params }: { params: Params }) {
+export default function PluginPage({ params }: { params: Params }) {
   const plugin = getPluginBySlug(params.slug)
 
   if (!plugin) notFound()
 
   return (
     <>
-      <PageHeader breadcrumbs={[{ href: '/plugins', label: 'Plugins' }]}>
+      <PageHeader
+        breadcrumbs={[{ href: '/plugins', label: 'Plugins' }]}
+        subtitle={plugin.description}
+      >
         {plugin.title}
       </PageHeader>
     </>

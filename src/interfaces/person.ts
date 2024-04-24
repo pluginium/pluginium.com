@@ -1,4 +1,4 @@
-export interface Author {
+export interface Person {
   title: string
   slug: string
   content: string

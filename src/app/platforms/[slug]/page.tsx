@@ -1,8 +1,7 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { getAllPlatforms, getPlatformBySlug } from '@/app/api/platforms/route'
 import PageHeader from '@/components/PageHeader'
+import { getAllPlatforms, getPlatformBySlug } from '@/lib/api'
 
 import type { Metadata } from 'next'
 
@@ -22,7 +21,7 @@ export async function generateMetadata({
   }
 }
 
-export default function Platform({ params }: { params: Params }) {
+export default function PlatformPage({ params }: { params: Params }) {
   const platform = getPlatformBySlug(params.slug)
 
   if (!platform) notFound()

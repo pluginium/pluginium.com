@@ -22,7 +22,7 @@ const BlogPost = ({ children, date, href, platform }: BlogPostProps) => {
       )}
 
       {date && (
-        <p className="z-[2] -mt-4 text-sm font-semibold">
+        <p className="z-[2] text-sm font-semibold">
           {new Date(date).toLocaleDateString()}
         </p>
       )}

@@ -1,8 +1,8 @@
 ---
-title: How to Build a WordPress Plugin
-platform: wordpress
+title: How to Build a Slack App
+platform: slack
 author: morgan-spencer
-date: 2024-04-20
+date: 2024-04-28
 ---
 
 ## Description

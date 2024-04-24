@@ -9,7 +9,7 @@ import {
   FaSlack,
   FaWordpress,
 } from 'react-icons/fa6'
-import { SiAdobe, SiQuickbooks } from 'react-icons/si'
+import { SiAdobe, SiNotion, SiQuickbooks } from 'react-icons/si'
 
 export const platformIcons: Record<string, IconType> = {
   adobe: SiAdobe,
@@ -17,6 +17,7 @@ export const platformIcons: Record<string, IconType> = {
   chrome: FaChrome,
   figma: FaFigma,
   hubspot: FaHubspot,
+  notion: SiNotion,
   quickbooks: SiQuickbooks,
   salesforce: FaSalesforce,
   shopify: FaShopify,

@@ -8,6 +8,7 @@ import { TbChevronDown, TbMenu, TbX } from 'react-icons/tb'
 
 import { Platform } from '@/interfaces/platform'
 import { Plugin } from '@/interfaces/plugin'
+import { platformIcons } from '@/lib/platform-icons'
 
 interface MainMenuProps {
   platforms?: Omit<Platform, 'content'>[]
@@ -29,10 +30,19 @@ const MainMenu = ({ platforms, plugins }: MainMenuProps) => {
     {
       label: 'Platforms',
       href: '/platforms',
-      items: platforms?.map((p) => ({
-        href: `/platforms/${p.slug}`,
-        label: p.title,
-      })),
+      items: platforms?.map((p) => {
+        const Icon = platformIcons[p.slug]
+
+        return {
+          href: `/platforms/${p.slug}`,
+          label: (
+            <>
+              <Icon aria-hidden className="mr-2 h-4 w-4 md:mr-4" />
+              {p.title}
+            </>
+          ),
+        }
+      }),
     },
     {
       label: 'Blog',
@@ -43,7 +53,7 @@ const MainMenu = ({ platforms, plugins }: MainMenuProps) => {
   return (
     <>
       {/* Desktop */}
-      <div className="-mr-2 hidden items-stretch md:flex">
+      <div className="-mr-2 hidden items-stretch justify-self-end md:flex">
         {menuItems.map((menuItem) =>
           menuItem.items ? (
             <Menu
@@ -64,7 +74,7 @@ const MainMenu = ({ platforms, plugins }: MainMenuProps) => {
                   <Menu.Item key={item.href}>
                     <Link
                       href={item.href}
-                      className="block whitespace-nowrap px-4 pb-1 pt-2 ui-active:bg-stone-200 ui-active:text-emerald-700 dark:ui-active:bg-stone-800 dark:ui-active:text-emerald-300"
+                      className="flex items-center whitespace-nowrap px-4 pb-1 pt-2 ui-active:bg-stone-200 ui-active:text-emerald-700 dark:ui-active:bg-stone-800 dark:ui-active:text-emerald-300"
                     >
                       {item.label}
                     </Link>
@@ -87,7 +97,7 @@ const MainMenu = ({ platforms, plugins }: MainMenuProps) => {
       {/* Mobile */}
       <button
         onClick={() => setIsMenuOpen(true)}
-        className="-mr-3 block px-3 transition-colors hover:bg-stone-100 hover:text-emerald-700 md:hidden dark:hover:bg-stone-900 dark:hover:text-emerald-300"
+        className="-mr-3 block justify-self-end px-3 transition-colors hover:bg-stone-100 hover:text-emerald-700 md:hidden dark:hover:bg-stone-900 dark:hover:text-emerald-300"
       >
         <TbMenu aria-hidden className="h-6 w-6" />
         <span className="sr-only">Toggle Menu</span>
@@ -112,7 +122,7 @@ const MainMenu = ({ platforms, plugins }: MainMenuProps) => {
           <div className="space-y-4">
             {menuItems.map((menuItem) => (
               <ul key={menuItem.href}>
-                <li className="">
+                <li>
                   <Link
                     href={menuItem.href}
                     className="inline-block py-1 font-bold uppercase"
@@ -120,13 +130,14 @@ const MainMenu = ({ platforms, plugins }: MainMenuProps) => {
                   >
                     {menuItem.label}
                   </Link>
+
                   {menuItem.items && menuItem.items.length > 0 && (
-                    <ul className="text-base">
+                    <ul className="text-lg">
                       {menuItem.items.map((item) => (
                         <li key={item.href}>
                           <Link
                             href={item.href}
-                            className="inline-block py-1"
+                            className="inline-flex items-center py-1"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {item.label}

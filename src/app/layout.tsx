@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import { Overpass } from 'next/font/google'
-import './globals.css'
+import { Overpass, Overpass_Mono } from 'next/font/google'
 import Link from 'next/link'
 import {
   FaGithub,
@@ -10,13 +9,24 @@ import {
   FaXTwitter,
 } from 'react-icons/fa6'
 
-import { getAllPlatforms } from '@/app/api/platforms/route'
-import { getAllPlugins } from '@/app/api/plugins/route'
 import Logo from '@/components/Logo'
 import MainMenu from '@/components/MainMenu'
 import Wordmark from '@/components/Wordmark'
+import { getAllPlatforms, getAllPlugins } from '@/lib/api'
 
-const overpass = Overpass({ subsets: ['latin'] })
+import './globals.scss'
+
+const overpass = Overpass({
+  subsets: ['latin'],
+  variable: '--font-sans',
+  display: 'swap',
+})
+
+const overpassMono = Overpass_Mono({
+  subsets: ['latin'],
+  variable: '--font-mono',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: {
@@ -33,6 +43,8 @@ export default function RootLayout({
 }>) {
   const platforms = getAllPlatforms()
   const plugins = getAllPlugins()
+
+  const banner = ''
 
   const socials = [
     { label: 'GitHub', icon: FaGithub, href: 'https://github.com/pluginium' },
@@ -54,18 +66,104 @@ export default function RootLayout({
     },
   ]
 
+  const footerLinks: {
+    label: string
+    href?: string
+    double?: boolean
+    links: {
+      href: string
+      label: string
+    }[]
+  }[] = [
+    {
+      label: 'Platforms',
+      href: '/platforms',
+      links: platforms.map((platform) => ({
+        href: `/platforms/${platform.slug}`,
+        label: platform.title,
+      })),
+    },
+    {
+      label: 'Plugins',
+      href: '/plugins',
+      double: true,
+      links: plugins.map((plugin) => ({
+        href: `/plugins/${plugin.slug}`,
+        label: plugin.title,
+      })),
+    },
+    {
+      label: 'Company',
+      links: [
+        {
+          href: '/blog',
+          label: 'Blog',
+        },
+        {
+          href: '/about',
+          label: 'About',
+        },
+        {
+          href: '/team',
+          label: 'Team',
+        },
+        {
+          href: '/contact',
+          label: 'Contact',
+        },
+        {
+          href: '/careers',
+          label: 'Careers',
+        },
+        {
+          href: '/open-source',
+          label: 'Open Source',
+        },
+        {
+          href: '/terms',
+          label: 'Terms and Conditions',
+        },
+        {
+          href: '/privacy',
+          label: 'Privacy',
+        },
+      ],
+    },
+    {
+      label: 'Support',
+      links: [
+        {
+          href: '#',
+          label: 'Chat',
+        },
+        {
+          href: 'mailto:support@pluginium.com',
+          label: 'Email',
+        },
+      ],
+    },
+  ]
+
   return (
     <html lang="en">
       <body
-        className={`${overpass.className} flex min-h-screen w-full flex-col bg-white text-stone-950 dark:bg-stone-950 dark:text-stone-50`}
+        className={`${overpass.variable} ${overpassMono.variable} flex min-h-screen w-full flex-col bg-white font-sans text-stone-950 dark:bg-stone-950 dark:text-stone-50`}
       >
-        <header className="sticky top-0 z-20 flex h-12 items-stretch justify-between border-b-1/2 bg-white px-wrap dark:bg-stone-950">
+        <header className="sticky top-0 z-20 grid grid-cols-2 border-b-1/2 bg-white px-wrap dark:bg-stone-950">
+          {banner && (
+            <Link
+              href="/plugins/clipboard"
+              className="col-span-2 -mx-wrap bg-emerald-600 py-1 text-center text-stone-50 hover:bg-emerald-800 hover:text-stone-50 dark:bg-emerald-400 dark:text-stone-950 dark:hover:bg-emerald-300 hover:dark:text-stone-950"
+              dangerouslySetInnerHTML={{ __html: banner }}
+            />
+          )}
+
           <Link
             href="/"
-            className="-ml-3 p-3 hover:bg-stone-100 dark:hover:bg-stone-900"
+            className="-ml-3 justify-self-start p-3 hover:bg-stone-100 dark:hover:bg-stone-900"
           >
-            <Logo className="block md:hidden" />
-            <Wordmark className="hidden md:block" />
+            <Logo className="block h-6 md:hidden" />
+            <Wordmark className="hidden h-6 md:block" />
           </Link>
 
           <MainMenu platforms={platforms} plugins={plugins} />
@@ -103,101 +201,33 @@ export default function RootLayout({
               </p>
             </div>
 
-            <div>
-              <h3 className="mb-1 font-semibold uppercase">
-                <Link href="/platforms">Platforms</Link>
-              </h3>
-              <ul>
-                {platforms.map((platform) => (
-                  <li key={platform.slug}>
-                    <Link
-                      href={`/platforms/${platform.slug}`}
-                      className="inline-block py-1"
-                    >
-                      {platform.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="col-span-2">
-              <h3 className="mb-1 font-semibold uppercase">
-                <Link href="/plugins">Plugins</Link>
-              </h3>
-              <ul className="grid grid-cols-2 gap-x-4">
-                {plugins.map((plugin) => (
-                  <li key={plugin.slug}>
-                    <Link
-                      href={`/plugins/${plugin.slug}`}
-                      className="inline-block py-1"
-                    >
-                      {plugin.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="mb-1 font-semibold uppercase">Company</h3>
-              <ul>
-                <li>
-                  <Link href="/about" className="inline-block py-1">
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="inline-block py-1">
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" className="inline-block py-1">
-                    Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/careers" className="inline-block py-1">
-                    Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/open-source" className="inline-block py-1">
-                    Open Source
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms" className="inline-block py-1">
-                    Terms and Conditions
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="inline-block py-1">
-                    Privacy
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="mb-1 font-semibold uppercase">Support</h3>
-              <ul>
-                <li>
-                  <Link href="#" className="inline-block py-1">
-                    Chat
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="mailto:support@pluginium.com"
-                    className="inline-block py-1"
-                  >
-                    Email
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            {footerLinks.map((section) => (
+              <div
+                key={section.label}
+                className={section.double ? 'col-span-2' : undefined}
+              >
+                <h3 className="mb-1 font-semibold uppercase">
+                  {section.href ? (
+                    <Link href={section.href}>{section.label}</Link>
+                  ) : (
+                    section.label
+                  )}
+                </h3>
+                <ul
+                  className={
+                    section.double ? 'grid grid-cols-2 gap-x-4' : undefined
+                  }
+                >
+                  {section.links.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href} className="inline-block py-1">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </footer>
       </body>

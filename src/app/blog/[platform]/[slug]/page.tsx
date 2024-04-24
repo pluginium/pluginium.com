@@ -1,10 +1,15 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { getAuthorBySlug } from '@/app/api/authors/route'
-import { getPlatformBySlug } from '@/app/api/platforms/route'
-import { getAllPosts, getPostBySlug } from '@/app/api/posts/route'
+import ContentContainer from '@/components/ContentContainer'
 import PageHeader from '@/components/PageHeader'
+import markdownToHtml from '@/lib/markdownToHtml'
+import {
+  getAllPosts,
+  getPersonBySlug,
+  getPlatformBySlug,
+  getPostBySlug,
+} from '@/lib/api'
 
 import type { Metadata } from 'next'
 
@@ -25,15 +30,17 @@ export async function generateMetadata({
   }
 }
 
-export default function Post({ params }: { params: Params }) {
+export default async function PostPage({ params }: { params: Params }) {
   const platform = getPlatformBySlug(params.platform)
   const post = getPostBySlug(`${params.platform}-${params.slug}`)
 
   if (!post || !platform || !post.author) notFound()
 
-  const author = getAuthorBySlug(post.author)
+  const author = getPersonBySlug(post.author)
 
   if (!author) notFound()
+
+  const content = await markdownToHtml(post.content)
 
   return (
     <>
@@ -47,7 +54,7 @@ export default function Post({ params }: { params: Params }) {
           <>
             by{' '}
             <Link
-              href={`/blog/authors/${author.slug}`}
+              href={`/team/${author.slug}`}
               className="font-semibold hover:text-stone-950 hover:underline dark:hover:text-stone-50"
             >
               {author.title}
@@ -57,6 +64,10 @@ export default function Post({ params }: { params: Params }) {
       >
         {post.title}
       </PageHeader>
+
+      {post.content && (
+        <ContentContainer dangerouslySetInnerHTML={{ __html: content }} />
+      )}
     </>
   )
 }

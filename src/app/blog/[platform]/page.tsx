@@ -1,9 +1,13 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
-import { getAllPlatforms, getPlatformBySlug } from '@/app/api/platforms/route'
 import BlogPost from '@/components/BlogPost'
 import PageHeader from '@/components/PageHeader'
+import {
+  getAllPlatforms,
+  getAllPlugins,
+  getAllPosts,
+  getPlatformBySlug,
+} from '@/lib/api'
 
 import type { Metadata } from 'next'
 
@@ -26,6 +30,10 @@ export async function generateMetadata({
 
 export default function PlatformCategory({ params }: { params: Params }) {
   const platform = getPlatformBySlug(params.platform)
+  const plugins = getAllPlugins().filter((p) =>
+    Object.keys(p.platforms || {}).includes(platform.slug),
+  )
+  const posts = getAllPosts().filter((p) => p.platform === platform.slug)
 
   if (!platform) notFound()
 
@@ -42,7 +50,7 @@ export default function PlatformCategory({ params }: { params: Params }) {
       <section>
         <h2 className="mb-6 text-2xl">Latest Posts</h2>
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
-          {platform.posts.map((post) => (
+          {posts.map((post) => (
             <BlogPost
               key={`${post.platform}-${post.slug}`}
               href={`/blog/${post.platform}/${post.slug}`}
@@ -54,6 +62,19 @@ export default function PlatformCategory({ params }: { params: Params }) {
           ))}
         </div>
       </section>
+
+      {plugins.length > 0 && (
+        <section className="mt-12 border-t-1/2 pt-12">
+          <h2 className="mb-6 text-2xl">Our {platform.title} Offerings</h2>
+          <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
+            {plugins.map((plugin) => (
+              <BlogPost key={plugin.slug} href={`/plugins/${plugin.slug}`}>
+                {plugin.title}
+              </BlogPost>
+            ))}
+          </div>
+        </section>
+      )}
     </>
   )
 }

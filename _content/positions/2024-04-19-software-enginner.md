@@ -1,8 +1,7 @@
 ---
-title: How to Build a WordPress Plugin
-platform: wordpress
-author: morgan-spencer
-date: 2024-04-20
+title: Software Engineer
+date: 2024-04-19
+open: true
 ---
 
 ## Description

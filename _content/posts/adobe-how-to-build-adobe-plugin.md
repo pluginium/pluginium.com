@@ -1,8 +1,8 @@
 ---
-title: How to Build a WordPress Plugin
-platform: wordpress
+title: How to Build an Adobe Plugin
+platform: adobe
 author: morgan-spencer
-date: 2024-04-20
+date: 2024-04-21
 ---
 
 ## Description

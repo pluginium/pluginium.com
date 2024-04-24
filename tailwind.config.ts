@@ -9,8 +9,12 @@ const config: Config = {
   content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     fontFamily: {
-      sans: ['Overpass', ...defaultTheme.fontFamily.sans],
-      mono: ['"Overpass Mono"', ...defaultTheme.fontFamily.mono],
+      sans: ['var(--font-sans)', 'Overpass', ...defaultTheme.fontFamily.sans],
+      mono: [
+        'var(--font-mono)',
+        '"Overpass Mono"',
+        ...defaultTheme.fontFamily.mono,
+      ],
     },
     extend: {
       borderWidth: {

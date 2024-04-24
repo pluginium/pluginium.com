@@ -1,23 +1,27 @@
 import Link from 'next/link'
 
-import { getAllPlatforms } from '@/app/api/platforms/route'
+import LatestPosts from '@/components/LatestPosts'
 import Marquee from '@/components/Marquee'
 import PageHeader from '@/components/PageHeader'
+import PluginGrid from '@/components/PluginGrid'
+import { getAllPlatforms } from '@/lib/api'
 import { platformIcons } from '@/lib/platform-icons'
+
+import image from '@/../public/illustrations/home.svg'
 
 export default function Home() {
   const platforms = getAllPlatforms()
 
   return (
     <>
-      <PageHeader>
-        <span className="my-24 block">
-          Extending and plugging into top software platforms
-        </span>
+      <PageHeader image={image}>
+        Extending and plugging into top software platforms
       </PageHeader>
 
-      <section className="-mx-wrap -mt-12 border-y-1/2 bg-white px-wrap py-6 dark:bg-stone-950">
-        <h2 className="mb-6 text-center text-2xl">Platforms We Build On</h2>
+      <PluginGrid />
+
+      <section className="-mx-wrap my-12 border-y-1/2 bg-white px-wrap py-6 dark:bg-stone-950">
+        <h2 className="mb-6 text-2xl">Platforms We Build On</h2>
 
         <Marquee className="-mx-wrap py-2">
           {platforms.map((platform) => {
@@ -37,6 +41,8 @@ export default function Home() {
           })}
         </Marquee>
       </section>
+
+      <LatestPosts />
     </>
   )
 }

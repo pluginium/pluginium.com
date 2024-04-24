@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { platformIcons } from '@/lib/platform-icons'
@@ -8,6 +9,7 @@ interface PageHeaderProps {
     label: string
   }[]
   children?: React.ReactNode
+  image?: string
   platform?: string
   subtitle?: React.ReactNode
 }
@@ -15,33 +17,48 @@ interface PageHeaderProps {
 const PageHeader = ({
   breadcrumbs,
   children,
+  image,
   platform,
   subtitle,
 }: PageHeaderProps) => {
   const Icon = platform ? platformIcons[platform] : undefined
 
   return (
-    <header className="relative -mx-wrap -mt-12 mb-12 overflow-hidden bg-emerald-400 px-wrap py-24 text-center dark:bg-emerald-600">
-      {breadcrumbs && breadcrumbs.length > 0 && (
-        <ul className="relative z-[2] mb-1 flex items-center justify-center divide-x-1/2 divide-stone-950 text-xs font-medium uppercase dark:divide-white">
-          {breadcrumbs.map((breadcrumb) => (
-            <li key={breadcrumb.href}>
-              <Link
-                href={breadcrumb.href}
-                className="block px-2 hover:text-stone-950 hover:underline dark:hover:text-stone-50"
-              >
-                {breadcrumb.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+    <header
+      className={`${image ? 'grid items-center gap-x-12 gap-y-24 text-center md:grid-cols-2 md:text-left' : 'text-center'} relative -mx-wrap -mt-12 mb-12 overflow-hidden bg-emerald-400 px-wrap py-24 dark:bg-emerald-600`}
+    >
+      {image && (
+        <div className="mx-auto aspect-video max-w-xl">
+          <Image
+            src={image}
+            alt=""
+            className="relative z-[1] h-full w-full object-contain"
+          />
+        </div>
       )}
 
-      <h1 className="relative z-[2] text-4xl font-bold">{children}</h1>
+      <div>
+        {breadcrumbs && breadcrumbs.length > 0 && (
+          <ul className="relative z-[2] mb-1 flex items-center justify-center divide-x-1/2 divide-stone-950 text-xs font-medium uppercase dark:divide-white">
+            {breadcrumbs.map((breadcrumb) => (
+              <li key={breadcrumb.href}>
+                <Link
+                  href={breadcrumb.href}
+                  className="block px-2 hover:text-stone-950 hover:underline dark:hover:text-stone-50"
+                >
+                  {breadcrumb.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
 
-      {subtitle && (
-        <p className="relative z-[2] text-lg font-medium">{subtitle}</p>
-      )}
+        <h1 className="relative z-[2] text-4xl font-bold">{children}</h1>
+
+        {subtitle && (
+          <p className="relative z-[2] text-lg font-medium">{subtitle}</p>
+        )}
+      </div>
 
       {Icon && (
         <Icon

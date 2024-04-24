@@ -14,6 +14,18 @@
   a {
     @apply transition-colors duration-300 hover:text-emerald-700 dark:hover:text-emerald-300;
   }
+
+  label {
+    @apply text-xs uppercase font-bold;
+  }
+
+  input, textarea, select {
+    @apply block w-full font-normal border-1/2 text-lg bg-white dark:bg-stone-950 rounded-md px-3 py-2;
+  }
+
+  textarea {
+    @apply min-h-36;
+  }
 }
 
 @layer utilities {
@@ -66,4 +78,82 @@
 
 [class*="transition-"] {
   @apply duration-300;
+}
+
+#content {
+  > *:first-child {
+    @apply mt-0;
+  }
+
+  h2, h3, h4 {
+    @apply mt-12 -mb-2;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+
+  h4 {
+    @apply text-xl;
+  }
+
+  a {
+    @apply underline hover:no-underline;
+  }
+
+  ol, ul {
+    @apply ml-6 space-y-2;
+
+    &.contains-task-list {
+      @apply list-none ml-0;
+    }
+
+    ol, ul {
+      @apply mt-2;
+    }
+  }
+
+  ol {
+    @apply list-decimal;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+
+  pre {
+    @apply px-6 pt-6 pb-5 rounded-md overflow-x-auto border-1/2 bg-white dark:bg-stone-950;
+  }
+
+  :not(pre) code {
+    @apply bg-white dark:bg-stone-950 border-1/2 px-2 pt-1 rounded-md;
+  }
+
+  table {
+    @apply w-full border-1/2 rounded-md;
+
+    th, td {
+      @apply border-1/2 py-1 px-3;
+    }
+
+    th {
+      @apply bg-white dark:bg-stone-950;
+    }
+
+    tbody {
+      @apply bg-stone-200 dark:bg-stone-800;
+    }
+  }
+
+  blockquote {
+    @apply border-l-4 border-emerald-400 dark:border-emerald-600 pl-4 py-2;
+  }
+
+  blockquote blockquote {
+    @apply mt-2;
+  }
 }

@@ -1,5 +1,7 @@
 import PageHeader from '@/components/PageHeader'
 
+import image from '@/../public/illustrations/open-source.svg'
+
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
 export default function OpenSource() {
   return (
     <>
-      <PageHeader>Open Source</PageHeader>
+      <PageHeader image={image}>Open Source</PageHeader>
     </>
   )
 }

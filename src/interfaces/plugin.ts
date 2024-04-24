@@ -1,7 +1,7 @@
 export interface Plugin {
   title: string
   slug: string
-  abbr: string
+  description: string
   date: string
   published?: boolean
   platforms?: Record<string, string>

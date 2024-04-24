@@ -1,17 +1,20 @@
 import { MetadataRoute } from 'next'
 
-import { getAllAuthors } from './api/authors/route'
-import { getAllPlatforms } from '@/app/api/platforms/route'
-import { getAllPlugins } from '@/app/api/plugins/route'
-import { getAllPosts } from '@/app/api/posts/route'
+import {
+  getAllPeople,
+  getAllPlatforms,
+  getAllPlugins,
+  getAllPositions,
+  getAllPosts,
+} from '@/lib/api'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const url = 'https://pluginium.com'
 
   const platformData = getAllPlatforms()
 
-  const authors: MetadataRoute.Sitemap = getAllAuthors().map((author) => ({
-    url: `${url}/authors/${author.slug}`,
+  const people: MetadataRoute.Sitemap = getAllPeople().map((person) => ({
+    url: `${url}/team/${person.slug}`,
     lastModified: new Date(),
     changeFrequency: 'yearly',
     priority: 0.4,
@@ -37,6 +40,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.6,
+    }),
+  )
+
+  const positions: MetadataRoute.Sitemap = getAllPositions().map(
+    (position) => ({
+      url: `${url}/careers/${position.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
     }),
   )
 
@@ -76,7 +88,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...blogCategories,
     ...posts,
-    ...authors,
+    ...people,
     {
       url: `${url}/about`,
       lastModified: new Date(),
@@ -95,6 +107,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.3,
     },
+    ...positions,
     {
       url: `${url}/open-source`,
       lastModified: new Date(),
