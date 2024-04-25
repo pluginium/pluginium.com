@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import { platformIcons } from '@/lib/platform-icons'
+import { platformIcons } from '@/lib/platformIcons'
 
 interface BlogPostProps {
   children?: React.ReactNode

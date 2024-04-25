@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { TbChevronDown, TbMenu, TbX } from 'react-icons/tb'
 
 import { Platform, Plugin } from '@/lib/api'
-import { platformIcons } from '@/lib/platform-icons'
+import { platformIcons } from '@/lib/platformIcons'
 
 interface MainMenuProps {
   platforms?: Omit<Platform, 'content'>[]
@@ -36,7 +36,7 @@ const MainMenu = ({ platforms, plugins }: MainMenuProps) => {
           href: `/platforms/${p.slug}`,
           label: (
             <>
-              <Icon aria-hidden className="mr-2 h-4 w-4 md:mr-4" />
+              <Icon aria-hidden className="mr-3 h-4 w-4 md:mr-4" />
               {p.title}
             </>
           ),

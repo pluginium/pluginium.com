@@ -4,7 +4,7 @@ import BlogPost from '@/components/BlogPost'
 import LatestPosts from '@/components/LatestPosts'
 import PageHeader from '@/components/PageHeader'
 import { getAllPlatforms, getAllPosts } from '@/lib/api'
-import { platformIcons } from '@/lib/platform-icons'
+import { platformIcons } from '@/lib/platformIcons'
 
 import image from '@/../public/illustrations/blog.svg'
 
@@ -15,6 +15,9 @@ const description = 'Read the latest from our industry experts'
 export const metadata: Metadata = {
   title: 'Blog',
   description,
+  openGraph: {
+    url: 'https://pluginium/blog',
+  },
 }
 
 export default function Blog() {
@@ -65,7 +68,7 @@ export default function Blog() {
               {posts.map((post) => (
                 <BlogPost
                   key={`${post.platform}-${post.slug}`}
-                  href={`/blog/${post.platform || 'news'}/${post.slug}`}
+                  href={`/blog/${post.platform}/${post.slug}`}
                   platform={post.platform}
                   date={post.date}
                 >

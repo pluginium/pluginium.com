@@ -7,8 +7,15 @@ import image from '@/../public/illustrations/careers.svg'
 
 import type { Metadata } from 'next'
 
+const description =
+  'Discover exciting opportunities to thrive and grow with Pluginium, where passion meets purpose in every role.'
+
 export const metadata: Metadata = {
   title: 'Careers',
+  description,
+  openGraph: {
+    url: 'https://pluginium/careers',
+  },
 }
 
 export default function Platforms() {
@@ -16,7 +23,9 @@ export default function Platforms() {
 
   return (
     <>
-      <PageHeader image={image}>Careers</PageHeader>
+      <PageHeader image={image} subtitle={description}>
+        Careers
+      </PageHeader>
 
       <div className="space-y-12">
         {positions.map((position) => (

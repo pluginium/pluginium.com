@@ -17,7 +17,11 @@ export async function generateMetadata({
   const person = getPersonBySlug(params.slug)
 
   return {
-    title: `${person.title} | People`,
+    title: `${person.title} | Team`,
+    description: `Learn more about ${person.title}`,
+    openGraph: {
+      url: `https://pluginium.com/team/${person.title}`,
+    },
   }
 }
 

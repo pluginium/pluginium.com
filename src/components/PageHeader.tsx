@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { platformIcons } from '@/lib/platform-icons'
+import { platformIcons } from '@/lib/platformIcons'
 
 interface PageHeaderProps {
   breadcrumbs?: {
@@ -33,6 +33,7 @@ const PageHeader = ({
             src={image}
             alt=""
             className="relative z-[1] h-full w-full object-contain"
+            priority
           />
         </div>
       )}
@@ -56,7 +57,9 @@ const PageHeader = ({
         <h1 className="relative z-[2] text-4xl font-bold">{children}</h1>
 
         {subtitle && (
-          <p className="relative z-[2] text-lg font-medium">{subtitle}</p>
+          <p className="relative z-[2] mx-auto mt-1 max-w-3xl text-lg font-medium leading-snug">
+            {subtitle}
+          </p>
         )}
       </div>
 

@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next'
 
 import {
+  getAllNews,
   getAllPeople,
   getAllPlatforms,
   getAllPlugins,
@@ -52,6 +53,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   )
 
+  const news: MetadataRoute.Sitemap = getAllNews().map((item) => ({
+    url: `${url}/newsroom/${item.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.5,
+  }))
+
   const posts: MetadataRoute.Sitemap = getAllPosts().map((post) => ({
     url: `${url}/blog/${post.platform}/${post.slug}`,
     lastModified: new Date(),
@@ -63,7 +71,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url,
       lastModified: new Date(),
-      changeFrequency: 'yearly',
+      changeFrequency: 'monthly',
       priority: 1,
     },
     {
@@ -88,6 +96,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...blogCategories,
     ...posts,
+    {
+      url: `${url}/newsroom`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    ...news,
+    {
+      url: `${url}/team`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.4,
+    },
     ...people,
     {
       url: `${url}/about`,
@@ -113,6 +134,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.3,
+    },
+    {
+      url: `${url}/accessibility`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.1,
     },
     {
       url: `${url}/terms`,

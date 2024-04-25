@@ -2,15 +2,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { metadata as layoutMetadata } from '@/app/layout'
 import ContentContainer from '@/components/ContentContainer'
 import PageHeader from '@/components/PageHeader'
 import markdownToHtml from '@/lib/markdownToHtml'
 import {
-  getAllNews,
   getAllPosts,
   getPersonBySlug,
   getPlatformBySlug,
-  getNewsBySlug,
   getPostBySlug,
 } from '@/lib/api'
 
@@ -27,25 +26,22 @@ export async function generateMetadata({
 }: {
   params: Params
 }): Promise<Metadata> {
-  const post =
-    params.category === 'news'
-      ? getNewsBySlug(params.slug)
-      : getPostBySlug(`${params.category}-${params.slug}`)
+  const post = getPostBySlug(`${params.category}-${params.slug}`)
 
   return {
     title: `${post.title} | Blog`,
+    description: post.description || layoutMetadata.description,
+    openGraph: {
+      url: `https://pluginium/blog/${post.platform}/${post.slug}`,
+    },
   }
 }
 
 export default async function PostPage({ params }: { params: Params }) {
-  const platform =
-    params.category === 'news' ? undefined : getPlatformBySlug(params.category)
-  const post =
-    params.category === 'news'
-      ? getNewsBySlug(params.slug)
-      : getPostBySlug(`${params.category}-${params.slug}`)
+  const platform = getPlatformBySlug(params.category)
+  const post = getPostBySlug(`${params.category}-${params.slug}`)
 
-  if (!post || (params.category !== 'news' && !platform) || !post.author) {
+  if (!post || !platform || !post.author) {
     notFound()
   }
 
@@ -69,8 +65,8 @@ export default async function PostPage({ params }: { params: Params }) {
         breadcrumbs={[
           { href: '/blog', label: 'Blog' },
           {
-            href: `/blog/${platform?.slug || 'news'}`,
-            label: platform?.title || 'News',
+            href: `/blog/${platform?.slug}`,
+            label: platform?.title,
           },
         ]}
         platform={platform?.slug}
@@ -128,7 +124,7 @@ export default async function PostPage({ params }: { params: Params }) {
             {moreAuthorPosts.map((post) => (
               <BlogPost
                 key={post.slug}
-                href={`/blog/${post.platform || 'news'}/${post.slug}`}
+                href={`/blog/${post.platform}/${post.slug}`}
                 platform={post.platform}
                 date={post.date}
               >
@@ -146,7 +142,7 @@ export async function generateStaticParams() {
   const posts = getAllPosts()
 
   return posts.map((post) => ({
-    category: post.platform || 'news',
+    category: post.platform,
     slug: post.slug,
   }))
 }

@@ -8,8 +8,15 @@ import image from '@/../public/illustrations/team.svg'
 
 import type { Metadata } from 'next'
 
+const description =
+  'Meet the brilliant minds driving our company forward through passion, expertise, and creativity'
+
 export const metadata: Metadata = {
-  title: 'People | Blog',
+  title: 'Team',
+  description,
+  openGraph: {
+    url: 'https://pluginium.com/team',
+  },
 }
 
 export default function People() {
@@ -17,7 +24,9 @@ export default function People() {
 
   return (
     <>
-      <PageHeader image={image}>Team</PageHeader>
+      <PageHeader image={image} subtitle={description}>
+        Team
+      </PageHeader>
 
       <section className="grid gap-y-6 sm:grid-cols-2 md:grid-cols-3 md:gap-12 lg:grid-cols-4 xl:grid-cols-5">
         {people.map((person) => (

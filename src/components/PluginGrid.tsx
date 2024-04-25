@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { getAllPlugins } from '@/lib/api'
-import { platformIcons } from '@/lib/platform-icons'
+import { platformIcons } from '@/lib/platformIcons'
 
 interface PluginGridProps {
   hideTitle?: boolean

@@ -2,12 +2,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+import { metadata as layoutMetadata } from '@/app/layout'
 import BlogPost from '@/components/BlogPost'
 import ContentContainer from '@/components/ContentContainer'
 import PageHeader from '@/components/PageHeader'
 import { getAllPlatforms, getPlatformBySlug } from '@/lib/api'
 import markdownToHtml from '@/lib/markdownToHtml'
-import { platformIcons } from '@/lib/platform-icons'
+import { platformIcons } from '@/lib/platformIcons'
 
 import type { Metadata } from 'next'
 
@@ -24,6 +25,10 @@ export async function generateMetadata({
 
   return {
     title: `${platform.title} | Platforms`,
+    description: platform.description || layoutMetadata.description,
+    openGraph: {
+      url: `https://pluginium.com/platforms/${platform.slug}`,
+    },
   }
 }
 

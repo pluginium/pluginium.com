@@ -29,11 +29,31 @@ const overpassMono = Overpass_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://pluginium.com'),
   title: {
     default: 'Pluginium | Extending and plugging into top software platforms',
     template: '%s | Pluginium',
   },
-  description: '',
+  description:
+    'Pluginium extends and plugs into top software platforms with innovative solutions.',
+  applicationName: 'Pluginium Website',
+  authors: {
+    name: 'Pluginium Team',
+    url: 'https://pluginium.com',
+  },
+  generator: 'Next.js',
+  referrer: 'origin',
+  creator: 'Pluginium Team',
+  publisher: 'Pluginium',
+  openGraph: {
+    type: 'website',
+    url: 'https://pluginium.com',
+    siteName: 'Pluginium',
+  },
+  twitter: {
+    site: '@pluginium',
+    creator: '@pluginium',
+  },
 }
 
 export default function RootLayout({
@@ -96,14 +116,6 @@ export default function RootLayout({
       label: 'Company',
       links: [
         {
-          href: '/blog',
-          label: 'Blog',
-        },
-        {
-          href: '/blog/news',
-          label: 'News',
-        },
-        {
           href: '/about',
           label: 'About',
         },
@@ -112,20 +124,24 @@ export default function RootLayout({
           label: 'Team',
         },
         {
+          href: '/contact',
+          label: 'Contact',
+        },
+        {
           href: '/careers',
           label: 'Careers',
         },
         {
+          href: '/blog',
+          label: 'Blog',
+        },
+        {
+          href: '/newsroom',
+          label: 'Newsroom',
+        },
+        {
           href: '/open-source',
           label: 'Open Source',
-        },
-        {
-          href: '/terms',
-          label: 'Terms and Conditions',
-        },
-        {
-          href: '/privacy',
-          label: 'Privacy',
         },
       ],
     },
@@ -139,10 +155,6 @@ export default function RootLayout({
         {
           href: 'mailto:support@pluginium.com',
           label: 'Email',
-        },
-        {
-          href: '/contact',
-          label: 'Contact',
         },
       ],
     },
@@ -203,6 +215,16 @@ export default function RootLayout({
                 Copyright &copy; {new Date().getFullYear()}{' '}
                 <Link href="/">Pluginium LLC</Link>
               </p>
+
+              <p className="mt-2 space-x-2 divide-x-1/2 text-xs">
+                <Link href="/terms">Terms</Link>
+                <Link href="/privacy" className="pl-2">
+                  Privacy
+                </Link>
+                <Link href="/accessibility" className="pl-2">
+                  Accessibility
+                </Link>
+              </p>
             </div>
 
             {footerLinks.map((section) => (
@@ -212,7 +234,9 @@ export default function RootLayout({
               >
                 <h3 className="mb-1 font-semibold uppercase">
                   {section.href ? (
-                    <Link href={section.href}>{section.label}</Link>
+                    <Link href={section.href} className="block pb-1">
+                      {section.label}
+                    </Link>
                   ) : (
                     section.label
                   )}
@@ -224,7 +248,7 @@ export default function RootLayout({
                 >
                   {section.links.map((link) => (
                     <li key={link.href}>
-                      <Link href={link.href} className="inline-block py-1">
+                      <Link href={link.href} className="block py-1">
                         {link.label}
                       </Link>
                     </li>

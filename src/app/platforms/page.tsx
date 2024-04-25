@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 import PageHeader from '@/components/PageHeader'
 import { getAllPlatforms } from '@/lib/api'
-import { platformIcons } from '@/lib/platform-icons'
+import { platformIcons } from '@/lib/platformIcons'
 
 import image from '@/../public/illustrations/platforms.svg'
 

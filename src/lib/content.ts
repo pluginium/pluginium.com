@@ -34,7 +34,7 @@ export function getAllContent<T extends BaseContent>(
 ): Omit<T, 'content'>[] {
   const slugs = fs.readdirSync(`_content/${dir}`)
   const content = slugs
-    .map((slug) => getContentBySlug<T>(dir, slug, true))
+    .map((slug) => getContentBySlug<T, boolean>(dir, slug, true))
     // sort content by title in ascending order
     .sort((content1, content2) => (content1.title < content2.title ? -1 : 1))
   return content

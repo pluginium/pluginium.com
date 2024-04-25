@@ -7,13 +7,12 @@ export interface BaseContent {
 }
 
 interface BlogBase extends BaseContent {
+  description: string
   author: string
   date: string
 }
 
-interface News extends BlogBase {
-  platform?: never
-}
+interface News extends BlogBase {}
 
 export const getNewsBySlug = (slug: string) =>
   getContentBySlug<News>('news', slug)
@@ -26,7 +25,7 @@ interface Person extends BaseContent {
 }
 
 interface PersonWithRelations extends Person {
-  posts: Omit<News | Post, 'content'>[]
+  posts: Omit<Post, 'content'>[]
 }
 
 export const getPersonBySlug = (slug: string): PersonWithRelations => {
@@ -47,7 +46,7 @@ export interface Platform extends BaseContent {
 
 interface PlatformWithRelations extends Platform {
   plugins: Omit<Plugin, 'content'>[]
-  posts: Omit<News | Post, 'content'>[]
+  posts: Omit<Post, 'content'>[]
 }
 
 export const getPlatformBySlug = (slug: string): PlatformWithRelations => {
@@ -102,18 +101,13 @@ export const getPostBySlug = (slug: string) => {
   return post
 }
 
-export const getAllPosts = () => {
-  const news = getAllNews()
-
-  const posts = getAllContent<Post>('posts').map(
-    (p) =>
-      ({
-        ...p,
-        slug: p.slug.replace(`${p.platform}-`, ''),
-      }) as Omit<Post, 'content'>,
-  )
-
-  return [...news, ...posts].sort((post1, post2) =>
-    post1.date > post2.date ? -1 : 1,
-  ) as Omit<News | Post, 'content'>[]
-}
+export const getAllPosts = () =>
+  getAllContent<Post>('posts')
+    .map(
+      (p) =>
+        ({
+          ...p,
+          slug: p.slug.replace(`${p.platform}-`, ''),
+        }) as Omit<Post, 'content'>,
+    )
+    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))

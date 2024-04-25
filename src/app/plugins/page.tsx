@@ -13,6 +13,9 @@ const description =
 export const metadata: Metadata = {
   title: 'Plugins',
   description,
+  openGraph: {
+    url: 'https://pluginium.com/plugins',
+  },
 }
 
 export default function Plugins() {

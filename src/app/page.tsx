@@ -5,7 +5,7 @@ import Marquee from '@/components/Marquee'
 import PageHeader from '@/components/PageHeader'
 import PluginGrid from '@/components/PluginGrid'
 import { getAllPlatforms } from '@/lib/api'
-import { platformIcons } from '@/lib/platform-icons'
+import { platformIcons } from '@/lib/platformIcons'
 
 import image from '@/../public/illustrations/home.svg'
 

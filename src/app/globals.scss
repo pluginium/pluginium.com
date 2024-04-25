@@ -19,7 +19,7 @@
     @apply text-xs uppercase font-bold;
   }
 
-  input, textarea, select {
+  input, textarea, select, .input {
     @apply block w-full font-normal border-1/2 text-lg bg-white dark:bg-stone-950 rounded-md px-3 py-2 focus:outline-none focus:border-emerald-600 dark:focus:border-emerald-400;
   }
 

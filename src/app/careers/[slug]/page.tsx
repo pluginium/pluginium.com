@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 
 import ContentContainer from '@/components/ContentContainer'
+import FileInput from '@/components/FileInput'
 import PageHeader from '@/components/PageHeader'
 import { getAllPositions, getPositionBySlug } from '@/lib/api'
 import markdownToHtml from '@/lib/markdownToHtml'
@@ -20,6 +21,10 @@ export async function generateMetadata({
 
   return {
     title: `${position.title} | Careers`,
+    description: `Join our dynamic team and unleash your potential in the rewarding role of ${position.title} that makes a real impact.`,
+    openGraph: {
+      url: `https://pluginium.com/careers/${position.slug}`,
+    },
   }
 }
 
@@ -57,6 +62,7 @@ export default async function PositionPage({ params }: { params: Params }) {
             Apply for the <span className="underline">{position.title}</span>{' '}
             position
           </h2>
+
           <form
             name={`position-${position.slug}`}
             method="POST"
@@ -115,27 +121,30 @@ export default async function PositionPage({ params }: { params: Params }) {
                 <input type="url" name="linkedin" />
               </label>
 
-              <label>
-                Resume *
-                <input
-                  type="file"
-                  accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                  required
-                />
-              </label>
+              <FileInput
+                accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                defaultMessage="Add a resume file"
+                label="Resume *"
+                required
+              />
             </div>
 
             <div>
               <label>
                 Tell us about yourself and why you want to work at Pluginium *
-                <textarea name="why" required></textarea>
+                <textarea
+                  name="why"
+                  minLength={200}
+                  maxLength={2000}
+                  required
+                ></textarea>
               </label>
             </div>
 
             <div className="flex items-center justify-end">
               <button
                 type="submit"
-                className="rounded-md bg-emerald-400 px-3 pb-1 pt-2 font-semibold transition-colors hover:bg-emerald-300 dark:bg-emerald-600 dark:hover:bg-emerald-700"
+                className="rounded-md bg-emerald-600 px-3 pb-1 pt-2 font-semibold text-stone-50 transition-colors hover:bg-emerald-700 dark:bg-emerald-400 dark:text-stone-950 dark:hover:bg-emerald-300"
               >
                 Submit
               </button>
