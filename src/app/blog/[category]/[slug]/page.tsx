@@ -13,8 +13,8 @@ import {
   getPostBySlug,
 } from '@/lib/api'
 
-import type { Metadata } from 'next'
 import BlogPost from '@/components/BlogPost'
+import type { Metadata } from 'next'
 
 interface Params {
   category: string
