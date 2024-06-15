@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import { Overpass, Overpass_Mono } from 'next/font/google'
 import Link from 'next/link'
 import {
@@ -12,8 +11,10 @@ import {
 import MainMenu from '@/components/MainMenu'
 import Wordmark from '@/components/Wordmark'
 import { getAllPlatforms, getAllSolutions } from '@/lib/api'
+import type { Metadata } from 'next'
 
 import './globals.scss'
+import 'highlight.js/styles/atom-one-dark.min.css'
 
 const overpass = Overpass({
   subsets: ['latin'],

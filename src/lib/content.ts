@@ -1,9 +1,9 @@
 import fs from 'fs'
-import matter from 'gray-matter'
 import { join } from 'path'
+import matter from 'gray-matter'
 
-import type { BaseContent } from './api'
 import { notFound } from 'next/navigation'
+import type { BaseContent } from './api'
 
 export function getContentBySlug<
   T extends BaseContent,
