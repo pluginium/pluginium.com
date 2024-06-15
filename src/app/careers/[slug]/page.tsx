@@ -23,7 +23,7 @@ export async function generateMetadata({
     title: `${position.title} | Careers`,
     description: `Join our dynamic team and unleash your potential in the rewarding role of ${position.title} that makes a real impact.`,
     openGraph: {
-      url: `https://pluginium.com/careers/${position.slug}`,
+      url: `careers/${position.slug}`,
     },
   }
 }

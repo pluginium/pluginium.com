@@ -1,7 +1,15 @@
+import Link from 'next/link'
+
+import { TbArrowNarrowRight } from 'react-icons/tb'
+
 import BlogPost from '@/components/BlogPost'
 import { getAllPosts } from '@/lib/api'
 
-const LatestPosts = () => {
+type LatestPostsProps = {
+  moreLink?: boolean
+}
+
+const LatestPosts = ({ moreLink }: LatestPostsProps) => {
   const posts = getAllPosts()
 
   const firstPosts = posts.slice(0, 6)
@@ -21,6 +29,15 @@ const LatestPosts = () => {
           </BlogPost>
         ))}
       </div>
+
+      {moreLink && (
+        <div className="mt-6 flex justify-end">
+          <Link href="/blog" className="flex items-center">
+            View more posts{' '}
+            <TbArrowNarrowRight aria-hidden className="ml-1 h-4 w-4" />
+          </Link>
+        </div>
+      )}
     </section>
   )
 }

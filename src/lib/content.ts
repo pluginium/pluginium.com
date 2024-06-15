@@ -3,6 +3,7 @@ import matter from 'gray-matter'
 import { join } from 'path'
 
 import type { BaseContent } from './api'
+import { notFound } from 'next/navigation'
 
 export function getContentBySlug<
   T extends BaseContent,
@@ -19,6 +20,9 @@ export function getContentBySlug<T extends BaseContent>(
 ): Omit<T, 'content'> | T {
   const realSlug = slug.replace(/\.md$/, '')
   const fullPath = join(`_content/${dir}`, `${realSlug}.md`)
+
+  if (!fs.existsSync(fullPath)) notFound()
+
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 

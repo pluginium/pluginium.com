@@ -1,3 +1,4 @@
+# Uncomment the next line to test locally
 local_backend: true
 backend:
   name: git-gateway
@@ -16,7 +17,17 @@ collections:
       - { label: Description, name: description, widget: string }
       - { label: Author, name: author, widget: relation, collection: people, search_fields: [title], value_field: title, display_fields: [title] }
       - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD }
-      - { label: Content, name: content, widget: markdown }
+      - { label: Body, name: body, widget: markdown }
+  - name: pages
+    label: Pages
+    label_singular: Page
+    folder: _content/pages
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: string }
+      - { label: Illustration, name: image, widget: image, choose_url: false, media_folder: /public/illustrations, public_folder: /illustrations }
+      - { label: Body, name: body, widget: markdown }
   - name: people
     label: People
     label_singular: Person
@@ -26,7 +37,8 @@ collections:
       - { label: Title, name: title, widget: string }
       - { label: Profile Image, name: image, widget: image, choose_url: false, media_folder: /public/images/people, public_folder: /images/people }
       - { label: Position, name: position, widget: string }
-      - { label: Content, name: content, widget: markdown }
+      - { label: Bio, name: bio, widget: string }
+      - { label: Body, name: body, widget: markdown }
   - name: platforms
     label: Platforms
     label_singular: Platform
@@ -35,19 +47,7 @@ collections:
     fields:
       - { label: Title, name: title, widget: string }
       - { label: Description, name: description, widget: string }
-      - { label: Content, name: content, widget: markdown }
-  - name: plugins
-    label: Plugins
-    label_singular: Plugin
-    folder: _content/plugins
-    create: true
-    fields:
-      - { label: Title, name: title, widget: string }
-      - { label: Description, name: description, widget: string }
-      - { label: Cover Image, name: cover, widget: image, choose_url: false, media_folder: /public/images/plugins, public_folder: /images/plugins }
-      - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD }
-      - { label: Published, name: published, widget: boolean}
-      - { label: Content, name: content, widget: markdown }
+      - { label: Body, name: body, widget: markdown }
   - name: positions
     label: Positions
     label_singular: Position
@@ -58,7 +58,7 @@ collections:
       - { label: Title, name: title, widget: string }
       - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD }
       - { label: Open, name: open, widget: boolean }
-      - { label: Content, name: content, widget: markdown }
+      - { label: Body, name: body, widget: markdown }
   - name: posts
     label: Posts
     label_singular: Post
@@ -71,4 +71,16 @@ collections:
       - { label: Author, name: author, widget: relation, collection: people, search_fields: [title], value_field: title, display_fields: [title] }
       - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD }
       - { label: Platform, name: platform, widget: relation, collection: platforms, search_fields: [title], value_field: title, display_fields: [title] }
-      - { label: Content, name: content, widget: markdown }
+      - { label: Body, name: body, widget: markdown }
+  - name: solutions
+    label: Solutions
+    label_singular: Solution
+    folder: _content/solutions
+    create: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Description, name: description, widget: string }
+      - { label: Cover Image, name: cover, widget: image, choose_url: false, media_folder: /public/images/solutions, public_folder: /images/solutions }
+      - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, date_format: YYYY-MM-DD }
+      - { label: Published, name: published, widget: boolean}
+      - { label: Body, name: body, widget: markdown }

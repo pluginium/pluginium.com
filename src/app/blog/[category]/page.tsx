@@ -4,8 +4,8 @@ import BlogPost from '@/components/BlogPost'
 import PageHeader from '@/components/PageHeader'
 import {
   getAllPlatforms,
-  getAllPlugins,
   getAllPosts,
+  getAllSolutions,
   getPlatformBySlug,
 } from '@/lib/api'
 
@@ -26,16 +26,16 @@ export async function generateMetadata({
     title: `${platform.title} | Blog`,
     description: `Tips and tricks for the ${platform.title} platform`,
     openGraph: {
-      url: `https://pluginium/blog/${platform.slug}`,
+      url: `blog/${platform.slug}`,
     },
   }
 }
 
 export default function PlatformCategory({ params }: { params: Params }) {
   const platform = getPlatformBySlug(params.category)
-  const plugins = platform
-    ? getAllPlugins().filter((p) =>
-        Object.keys(p.platforms || {}).includes(platform.slug),
+  const solutions = platform
+    ? getAllSolutions().filter((s) =>
+        Object.keys(s.platforms || {}).includes(platform.slug),
       )
     : []
   const posts = getAllPosts().filter((p) => p.platform === platform.slug)
@@ -68,13 +68,16 @@ export default function PlatformCategory({ params }: { params: Params }) {
         </div>
       </section>
 
-      {platform && plugins.length > 0 && (
+      {platform && solutions.length > 0 && (
         <section className="mt-12 border-t-1/2 pt-12">
           <h2 className="mb-6 text-2xl">Our {platform.title} Offerings</h2>
           <div className="grid grid-cols-1 gap-12 md:grid-cols-2 xl:grid-cols-3">
-            {plugins.map((plugin) => (
-              <BlogPost key={plugin.slug} href={`/plugins/${plugin.slug}`}>
-                {plugin.title}
+            {solutions.map((solution) => (
+              <BlogPost
+                key={solution.slug}
+                href={`/solutions/${solution.slug}`}
+              >
+                {solution.title}
               </BlogPost>
             ))}
           </div>

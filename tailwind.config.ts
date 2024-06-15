@@ -6,7 +6,10 @@ const config: Config = {
   future: {
     hoverOnlyWhenSupported: true,
   },
-  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: [
+    './src/app/**/{layout,page}.{ts,tsx}',
+    './src/components/**/*.{ts,tsx}',
+  ],
   theme: {
     fontFamily: {
       sans: ['var(--font-sans)', 'Overpass', ...defaultTheme.fontFamily.sans],

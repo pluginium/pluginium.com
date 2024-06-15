@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
 import PageHeader from '@/components/PageHeader'
-import PluginGrid from '@/components/PluginGrid'
+import SolutionGrid from '@/components/SolutionGrid'
 
-import image from '@/../public/illustrations/plugins.svg'
+import image from '@/../public/illustrations/solutions.svg'
 
 import type { Metadata } from 'next'
 
@@ -11,21 +11,21 @@ const description =
   'We carefully craft plugins and extensions to solve a variety of problems'
 
 export const metadata: Metadata = {
-  title: 'Plugins',
+  title: 'Solutions',
   description,
   openGraph: {
-    url: 'https://pluginium.com/plugins',
+    url: 'solutions',
   },
 }
 
-export default function Plugins() {
+export default function Solutions() {
   return (
     <>
       <PageHeader image={image} subtitle={description}>
-        Plugins
+        Solutions
       </PageHeader>
 
-      <PluginGrid hideTitle />
+      <SolutionGrid hideTitle />
     </>
   )
 }

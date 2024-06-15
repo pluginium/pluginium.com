@@ -19,9 +19,20 @@ export const getNewsBySlug = (slug: string) =>
 
 export const getAllNews = () => getAllContent<News>('news')
 
+interface Page extends BaseContent {
+  description?: string
+  image?: string
+}
+
+export const getPageBySlug = (slug: string) =>
+  getContentBySlug<Page>('pages', slug)
+
+export const getAllPages = () => getAllContent<Page>('pages')
+
 interface Person extends BaseContent {
   image: string
   position: string
+  bio: string
 }
 
 interface PersonWithRelations extends Person {
@@ -45,13 +56,13 @@ export interface Platform extends BaseContent {
 }
 
 interface PlatformWithRelations extends Platform {
-  plugins: Omit<Plugin, 'content'>[]
+  solutions: Omit<Solution, 'content'>[]
   posts: Omit<Post, 'content'>[]
 }
 
 export const getPlatformBySlug = (slug: string): PlatformWithRelations => {
   const platform = getContentBySlug<Platform>('platforms', slug)
-  const plugins = getAllPlugins().filter(
+  const solutions = getAllSolutions().filter(
     (p) => p.platforms && Object.keys(p.platforms).includes(platform.slug),
   )
   const posts = getAllPosts().filter(
@@ -60,14 +71,14 @@ export const getPlatformBySlug = (slug: string): PlatformWithRelations => {
 
   return {
     ...platform,
-    plugins,
+    solutions,
     posts,
   }
 }
 
 export const getAllPlatforms = () => getAllContent<Platform>('platforms')
 
-export interface Plugin extends BaseContent {
+export interface Solution extends BaseContent {
   cover?: string
   description: string
   date: string
@@ -75,10 +86,10 @@ export interface Plugin extends BaseContent {
   platforms?: Record<string, string>
 }
 
-export const getPluginBySlug = (slug: string) =>
-  getContentBySlug<Plugin>('plugins', slug)
+export const getSolutionBySlug = (slug: string) =>
+  getContentBySlug<Solution>('solutions', slug)
 
-export const getAllPlugins = () => getAllContent<Plugin>('plugins')
+export const getAllSolutions = () => getAllContent<Solution>('solutions')
 
 interface Position extends BaseContent {
   date: string

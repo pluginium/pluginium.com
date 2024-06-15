@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: 'Open Source',
   description,
   openGraph: {
-    url: 'https://pluginium.com/open-source',
+    url: 'open-source',
   },
 }
 

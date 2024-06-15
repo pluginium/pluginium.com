@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: 'Team',
   description,
   openGraph: {
-    url: 'https://pluginium.com/team',
+    url: 'team',
   },
 }
 
@@ -28,13 +28,13 @@ export default function People() {
         Team
       </PageHeader>
 
-      <section className="grid gap-y-6 sm:grid-cols-2 md:grid-cols-3 md:gap-12 lg:grid-cols-4 xl:grid-cols-5">
+      <section className="flex flex-wrap justify-center gap-x-16 gap-y-12">
         {people.map((person) => (
           <article
             key={person.slug}
-            className="relative flex flex-col items-center"
+            className="relative flex w-full max-w-48 flex-col items-center"
           >
-            <div className="mb-4 aspect-square max-w-48 overflow-hidden rounded-full">
+            <div className="mb-4 aspect-square overflow-hidden rounded-full border-1/2">
               <Image
                 src={person.image}
                 alt={person.title}

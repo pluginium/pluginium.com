@@ -7,6 +7,22 @@
     @apply border-stone-300 dark:border-stone-700;
   }
 
+  ::selection {
+    @apply bg-emerald-400 dark:bg-emerald-600;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2 bg-transparent;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-stone-100 dark:bg-stone-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-emerald-600 dark:bg-emerald-400 rounded-full transition-colors duration-300 hover:bg-emerald-500;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold;
   }
@@ -19,6 +35,10 @@
     @apply text-xs uppercase font-bold;
   }
 
+  form {
+    @apply space-y-6;
+  }
+
   input, textarea, select, .input {
     @apply block w-full font-normal border-1/2 text-lg bg-white dark:bg-stone-950 rounded-md px-3 py-2 focus:outline-none focus:border-emerald-600 dark:focus:border-emerald-400;
   }
@@ -29,10 +49,12 @@
 }
 
 @layer utilities {
-  .pattern-cross-dots-md {
-    background-image: radial-gradient(currentColor 1px,transparent 0),radial-gradient(currentColor 1px,transparent 0);
-    background-size: calc(20 * 1px) calc(20 * 1px);
-    background-position: 0 0,calc(10 * 1px) calc(10 * 1px)
+  .background-pattern {
+    background-image: linear-gradient(currentColor 1px, transparent 1px), linear-gradient(to right, currentColor 1px, transparent 1px);
+    background-size: 50px 50px;
+    background-position: center center;
+    pointer-events: none;
+    opacity: 0.375;
   }
 
   .marquee {

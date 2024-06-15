@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: 'Careers',
   description,
   openGraph: {
-    url: 'https://pluginium/careers',
+    url: 'careers',
   },
 }
 

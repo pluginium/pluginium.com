@@ -2,5 +2,7 @@
 title: Morgan Spencer
 image: /images/people/morgan-spencer.jpeg
 position: CTO & Founder
-content: About me
+bio: Lorem ipsum dolor sit amet, consectetur adip elementum et accusamus
 ---
+
+## About me

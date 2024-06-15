@@ -6,23 +6,23 @@ import { Dialog, Menu } from '@headlessui/react'
 import Link from 'next/link'
 import { TbChevronDown, TbMenu, TbX } from 'react-icons/tb'
 
-import { Platform, Plugin } from '@/lib/api'
+import { Platform, Solution } from '@/lib/api'
 import { platformIcons } from '@/lib/platformIcons'
 
 interface MainMenuProps {
   platforms?: Omit<Platform, 'content'>[]
-  plugins?: Omit<Plugin, 'content'>[]
+  solutions?: Omit<Solution, 'content'>[]
 }
 
-const MainMenu = ({ platforms, plugins }: MainMenuProps) => {
+const MainMenu = ({ platforms, solutions }: MainMenuProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const menuItems = [
     {
-      label: 'Plugins',
-      href: '/plugins',
-      items: plugins?.map((p) => ({
-        href: `/plugins/${p.slug}`,
+      label: 'Solutions',
+      href: '/solutions',
+      items: solutions?.map((p) => ({
+        href: `/solutions/${p.slug}`,
         label: p.title,
       })),
     },
@@ -42,6 +42,10 @@ const MainMenu = ({ platforms, plugins }: MainMenuProps) => {
           ),
         }
       }),
+    },
+    {
+      label: 'Services',
+      href: '/services',
     },
     {
       label: 'Blog',
@@ -110,7 +114,7 @@ const MainMenu = ({ platforms, plugins }: MainMenuProps) => {
       >
         <div className="fixed inset-0 bg-stone-100 bg-opacity-90 dark:bg-stone-900 dark:bg-opacity-95" />
 
-        <Dialog.Panel className="fixed bottom-12 left-wrap right-wrap top-12 my-2 overflow-y-auto rounded-md border-1/2 bg-white px-8 py-6 text-lg dark:bg-stone-950">
+        <Dialog.Panel className="fixed left-wrap right-wrap top-12 my-2 max-h-[calc(100vh_-_7rem)] overflow-y-auto rounded-md border-1/2 bg-white px-8 py-6 text-lg dark:bg-stone-950">
           <button
             className="fixed right-wrap top-14 p-2 transition-colors hover:text-emerald-700 dark:hover:text-emerald-300"
             onClick={() => setIsMenuOpen(false)}

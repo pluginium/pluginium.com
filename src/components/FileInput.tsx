@@ -47,7 +47,7 @@ const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
         </label>
 
         <button
-          className="input flex items-center justify-between text-left"
+          className="input group flex items-center justify-between text-left"
           onClick={() => innerRef.current?.click()}
           type="button"
         >
@@ -56,7 +56,10 @@ const FileInput = forwardRef<HTMLInputElement, FileInputProps>(
           >
             {buttonMsg}
           </span>
-          <Icon aria-hidden className="h-6 w-6" />
+          <Icon
+            aria-hidden
+            className="h-6 w-6 transition-colors group-hover:text-emerald-600 dark:group-hover:text-emerald-400"
+          />
         </button>
       </div>
     )

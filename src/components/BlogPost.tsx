@@ -17,7 +17,7 @@ const BlogPost = ({ children, date, href, platform }: BlogPostProps) => {
       {Icon && (
         <Icon
           aria-hidden
-          className="absolute left-1/2 top-1/2 z-[1] h-[150%] w-[150%] -translate-x-1/2 -translate-y-1/2 opacity-5"
+          className="pointer-events-none absolute left-1/2 top-1/2 z-[1] h-[150%] w-[150%] -translate-x-1/2 -translate-y-1/2 opacity-5"
         />
       )}
 
@@ -38,7 +38,7 @@ const BlogPost = ({ children, date, href, platform }: BlogPostProps) => {
 
       <div
         aria-hidden
-        className="pattern-cross-dots-md absolute inset-0 z-0 text-emerald-500 transition-colors group-hover:text-emerald-400 dark:group-hover:text-emerald-600"
+        className="background-pattern absolute inset-0 z-0 text-emerald-500 transition-colors group-hover:text-emerald-400 dark:group-hover:text-emerald-600"
       />
     </article>
   )

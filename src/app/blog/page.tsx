@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: 'Blog',
   description,
   openGraph: {
-    url: 'https://pluginium/blog',
+    url: 'blog',
   },
 }
 
@@ -36,7 +36,7 @@ export default function Blog() {
         <section className="-mx-wrap -mt-12 border-y-1/2 bg-white px-wrap py-12 dark:bg-stone-950">
           <h2 className="mb-6 text-2xl">By Platform</h2>
 
-          <ul className="-mx-wrap grid grid-flow-col grid-rows-1 justify-between gap-4 overflow-x-auto px-wrap py-2">
+          <ul className="-mx-wrap grid grid-flow-col grid-rows-1 justify-between gap-4 overflow-x-auto px-wrap py-2 [scrollbar-width:none]">
             {platforms.map((platform) => {
               const Icon = platformIcons[platform.slug]
 

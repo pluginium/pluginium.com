@@ -3,7 +3,7 @@ import Link from 'next/link'
 import LatestPosts from '@/components/LatestPosts'
 import Marquee from '@/components/Marquee'
 import PageHeader from '@/components/PageHeader'
-import PluginGrid from '@/components/PluginGrid'
+import SolutionGrid from '@/components/SolutionGrid'
 import { getAllPlatforms } from '@/lib/api'
 import { platformIcons } from '@/lib/platformIcons'
 
@@ -18,7 +18,7 @@ export default function Home() {
         Extending and plugging into top software platforms
       </PageHeader>
 
-      <PluginGrid />
+      <SolutionGrid truncate />
 
       <section className="-mx-wrap my-12 border-y-1/2 bg-white px-wrap py-6 dark:bg-stone-950">
         <h2 className="mb-6 text-2xl">Platforms We Build On</h2>
@@ -42,7 +42,7 @@ export default function Home() {
         </Marquee>
       </section>
 
-      <LatestPosts />
+      <LatestPosts moreLink />
     </>
   )
 }

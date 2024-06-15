@@ -25,7 +25,7 @@ export async function generateMetadata({
     title: `${news.title} | Newsroom`,
     description: news.description || layoutMetadata.description,
     openGraph: {
-      url: `https://pluginium.com/newsroom/${news.slug}`,
+      url: `newsroom/${news.slug}`,
     },
   }
 }

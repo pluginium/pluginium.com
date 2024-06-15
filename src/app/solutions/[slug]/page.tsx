@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { metadata as layoutMetadata } from '@/app/layout'
 import ContentContainer from '@/components/ContentContainer'
 import PageHeader from '@/components/PageHeader'
-import { getAllPlatforms, getAllPlugins, getPluginBySlug } from '@/lib/api'
+import { getAllPlatforms, getAllSolutions, getSolutionBySlug } from '@/lib/api'
 import markdownToHtml from '@/lib/markdownToHtml'
 import { platformIcons } from '@/lib/platformIcons'
 
@@ -19,32 +19,32 @@ export async function generateMetadata({
 }: {
   params: Params
 }): Promise<Metadata> {
-  const plugin = getPluginBySlug(params.slug)
+  const solution = getSolutionBySlug(params.slug)
 
   return {
-    title: `${plugin.title} | Plugins`,
-    description: plugin.description || layoutMetadata.description,
+    title: `${solution.title} | Solutions`,
+    description: solution.description || layoutMetadata.description,
     openGraph: {
-      url: `https://pluginium.com/plugins/${plugin.slug}`,
+      url: `solutions/${solution.slug}`,
     },
   }
 }
 
-export default async function PluginPage({ params }: { params: Params }) {
+export default async function SolutionPage({ params }: { params: Params }) {
   const platforms = getAllPlatforms()
-  const plugin = getPluginBySlug(params.slug)
+  const solution = getSolutionBySlug(params.slug)
 
-  if (!plugin) notFound()
+  if (!solution) notFound()
 
-  const content = await markdownToHtml(plugin.content)
+  const content = await markdownToHtml(solution.content)
 
   return (
     <>
       <PageHeader
-        breadcrumbs={[{ href: '/plugins', label: 'Plugins' }]}
-        subtitle={plugin.description}
+        breadcrumbs={[{ href: '/solutions', label: 'Solutions' }]}
+        subtitle={solution.description}
       >
-        {plugin.title}
+        {solution.title}
       </PageHeader>
 
       <section className="-mx-wrap -mt-12 mb-12 bg-white px-wrap py-4 dark:bg-stone-950">
@@ -52,12 +52,12 @@ export default async function PluginPage({ params }: { params: Params }) {
           <div>
             <h2 className="mb-2 text-center text-sm">Available on:</h2>
             <div className="flex items-center justify-center space-x-4">
-              {plugin.platforms &&
-                Object.keys(plugin.platforms).map((platform) => {
+              {solution.platforms &&
+                Object.keys(solution.platforms).map((platform) => {
                   const platformMatch = platforms.find(
                     (p) => p.slug === platform,
                   )
-                  const href = plugin.platforms?.[platform]
+                  const href = solution.platforms?.[platform]
                   const Icon = platformIcons[platform]
 
                   if (!href || !platformMatch) return <></>
@@ -79,7 +79,7 @@ export default async function PluginPage({ params }: { params: Params }) {
         </ContentContainer>
       </section>
 
-      {plugin.content && (
+      {solution.content && (
         <ContentContainer dangerouslySetInnerHTML={{ __html: content }} />
       )}
     </>
@@ -87,9 +87,9 @@ export default async function PluginPage({ params }: { params: Params }) {
 }
 
 export async function generateStaticParams() {
-  const plugins = getAllPlugins()
+  const solutions = getAllSolutions()
 
-  return plugins.map((plugin) => ({
-    slug: plugin.slug,
+  return solutions.map((solution) => ({
+    slug: solution.slug,
   }))
 }

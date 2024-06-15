@@ -32,7 +32,7 @@ export async function generateMetadata({
     title: `${post.title} | Blog`,
     description: post.description || layoutMetadata.description,
     openGraph: {
-      url: `https://pluginium/blog/${post.platform}/${post.slug}`,
+      url: `blog/${post.platform}/${post.slug}`,
     },
   }
 }
@@ -56,7 +56,7 @@ export default async function PostPage({ params }: { params: Params }) {
     : []
 
   const moreAuthorPosts = author.posts
-    .filter((p) => p.slug !== params.slug)
+    .filter((p) => p.slug !== post.slug)
     .slice(0, 2)
 
   return (
@@ -65,11 +65,11 @@ export default async function PostPage({ params }: { params: Params }) {
         breadcrumbs={[
           { href: '/blog', label: 'Blog' },
           {
-            href: `/blog/${platform?.slug}`,
-            label: platform?.title,
+            href: `/blog/${platform.slug}`,
+            label: platform.title,
           },
         ]}
-        platform={platform?.slug}
+        platform={platform.slug}
         subtitle={
           <>
             <Link
@@ -80,8 +80,8 @@ export default async function PostPage({ params }: { params: Params }) {
                 <Image
                   src={author.image}
                   alt={author.title}
-                  width={400}
-                  height={400}
+                  width={40}
+                  height={40}
                   className="object-cover object-center"
                 />
               </span>
@@ -97,7 +97,7 @@ export default async function PostPage({ params }: { params: Params }) {
         <ContentContainer dangerouslySetInnerHTML={{ __html: content }} />
       )}
 
-      {platform && morePlatformPosts.length > 0 && (
+      {morePlatformPosts.length > 0 && (
         <ContentContainer className="mt-12 border-t-1/2 pt-12" unstyled>
           <h2 className="text-2xl">More {platform.title} Posts</h2>
 
@@ -115,6 +115,28 @@ export default async function PostPage({ params }: { params: Params }) {
           </div>
         </ContentContainer>
       )}
+
+      <div className="mx-auto mt-12 flex w-full max-w-3xl border-t-1/2 pt-12">
+        <Link
+          href={`/team/${author.slug}`}
+          className="mr-6 aspect-square w-36 overflow-hidden rounded-full"
+        >
+          <Image
+            src={author.image}
+            alt={author.title}
+            width={144}
+            height={144}
+            className="object-cover object-center"
+          />
+        </Link>
+        <div className="flex flex-col justify-center">
+          <h2 className="text-2xl">
+            <Link href={`/team/${author.slug}`}>{author.title}</Link>
+          </h2>
+          <p className="text-lg opacity-75">{author.position}</p>
+          <p className="mt-2">{author.bio}</p>
+        </div>
+      </div>
 
       {moreAuthorPosts.length > 0 && (
         <ContentContainer className="mt-12 border-t-1/2 pt-12" unstyled>

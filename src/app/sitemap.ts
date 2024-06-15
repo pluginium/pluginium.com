@@ -4,9 +4,9 @@ import {
   getAllNews,
   getAllPeople,
   getAllPlatforms,
-  getAllPlugins,
   getAllPositions,
   getAllPosts,
+  getAllSolutions,
 } from '@/lib/api'
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -28,12 +28,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
-  const plugins: MetadataRoute.Sitemap = getAllPlugins().map((plugin) => ({
-    url: `${url}/plugins/${plugin.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-  }))
+  const solutions: MetadataRoute.Sitemap = getAllSolutions().map(
+    (solution) => ({
+      url: `${url}/solutions/${solution.slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    }),
+  )
 
   const blogCategories: MetadataRoute.Sitemap = platformData.map(
     (platform) => ({
@@ -75,12 +77,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: `${url}/plugins`,
+      url: `${url}/solutions`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
-    ...plugins,
+    ...solutions,
     {
       url: `${url}/platforms`,
       lastModified: new Date(),
@@ -88,6 +90,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...platforms,
+    {
+      url: `${url}/services`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
     {
       url: `${url}/blog`,
       lastModified: new Date(),
@@ -103,6 +111,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     ...news,
+    {
+      url: `${url}/media`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.5,
+    },
     {
       url: `${url}/team`,
       lastModified: new Date(),
