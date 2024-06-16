@@ -227,7 +227,7 @@ export default function RootLayout({
               </ul>
 
               <p className="text-xs">
-                Copyright &copy; {new Date().getFullYear()}{' '}
+                &copy; {new Date().getFullYear()}{' '}
                 <Link href="/">Pluginium LLC</Link>
               </p>
 

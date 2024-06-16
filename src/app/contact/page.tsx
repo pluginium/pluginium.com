@@ -27,9 +27,9 @@ export default function Contact() {
           name="contact"
           method="POST"
           encType="multipart/form-data"
-          data-netlify="true"
           className="space-y-6"
         >
+          <input type="hidden" name="form-name" value="contact" />
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
               <label>

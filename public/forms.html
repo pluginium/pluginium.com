@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hidden forms</title>
+  </head>
+  <body>
+    <form name="contact" netlify hidden encType="multipart/form-data">
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="text" name="phone" />
+      <input type="text" name="company" />
+      <input type="url" name="personalUrl" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <form name="job-application" netlify hidden encType="multipart/form-data">
+      <input type="hidden" name="position" />
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="text" name="phone" />
+      <input type="url" name="portfolioUrl" />
+      <input type="url" name="personalUrl" />
+      <input type="url" name="linkedin" />
+      <input type="file" name="resume" />
+      <textarea name="message"></textarea>
+    </form>
+
+    <form name="services" netlify hidden encType="multipart/form-data">
+      <input type="text" name="firstName" />
+      <input type="text" name="lastName" />
+      <input type="email" name="email" />
+      <input type="text" name="phone" />
+      <input type="text" name="company" />
+      <input type="url" name="personalUrl" />
+      <select name="platform"></select>
+      <select name="budget"></select>
+      <textarea name="description"></textarea>
+    </form>
+  </body>
+</html>

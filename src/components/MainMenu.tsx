@@ -114,7 +114,7 @@ const MainMenu = ({ platforms, solutions }: MainMenuProps) => {
       >
         <div className="fixed inset-0 bg-stone-100 bg-opacity-90 dark:bg-stone-900 dark:bg-opacity-95" />
 
-        <Dialog.Panel className="fixed left-wrap right-wrap top-12 my-2 max-h-[calc(100vh_-_7rem)] overflow-y-auto rounded-md border-1/2 bg-white px-8 py-6 text-lg dark:bg-stone-950">
+        <Dialog.Panel className="fixed left-wrap right-wrap top-12 my-2 max-h-[70vh] overflow-y-auto rounded-md border-1/2 bg-white px-8 py-6 text-lg dark:bg-stone-950">
           <button
             className="fixed right-wrap top-14 p-2 transition-colors hover:text-emerald-700 dark:hover:text-emerald-300"
             onClick={() => setIsMenuOpen(false)}

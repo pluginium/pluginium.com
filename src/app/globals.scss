@@ -23,6 +23,10 @@
     @apply bg-emerald-600 dark:bg-emerald-400 rounded-full transition-colors duration-300 hover:bg-emerald-500;
   }
 
+  html {
+    @apply bg-white dark:bg-stone-950;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold;
   }
@@ -149,6 +153,10 @@
 
   pre {
     @apply rounded-md my-8 overflow-x-auto border-1/2 bg-stone-950;
+  }
+
+  code {
+    @apply text-base;
   }
 
   p code {

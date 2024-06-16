@@ -59,17 +59,18 @@ export default async function PositionPage({ params }: { params: Params }) {
       {position.open && (
         <ContentContainer className="mt-12 border-t-1/2 pt-12">
           <h2>
-            Apply for the <span className="underline">{position.title}</span>{' '}
-            position
+            Apply for the <em>{position.title}</em> position
           </h2>
 
           <form
-            name={`position-${position.slug}`}
+            name="job-application"
             method="POST"
             encType="multipart/form-data"
             data-netlify="true"
             className="space-y-6"
           >
+            <input type="hidden" name="form-name" value="job-application" />
+            <input type="hidden" name="position" value={position.slug} />
             <div className="grid gap-6 sm:grid-cols-2">
               <div>
                 <label>
@@ -122,6 +123,7 @@ export default async function PositionPage({ params }: { params: Params }) {
               </label>
 
               <FileInput
+                name="resume"
                 accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 defaultMessage="Add a resume file"
                 label="Resume *"
@@ -133,7 +135,7 @@ export default async function PositionPage({ params }: { params: Params }) {
               <label>
                 Tell us about yourself and why you want to work at Pluginium *
                 <textarea
-                  name="why"
+                  name="message"
                   minLength={200}
                   maxLength={2000}
                   required
