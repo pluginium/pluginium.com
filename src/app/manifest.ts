@@ -7,8 +7,6 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'Pluginium Web App',
     start_url: '/',
     display: 'standalone',
-    background_color: '#fff',
-    theme_color: '#fff',
     icons: [
       {
         src: '/icon.svg',
